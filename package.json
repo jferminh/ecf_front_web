@@ -1,0 +1,30 @@
+{
+  "name": "ecf_front_web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sass": "sass src/css/main.scss src/css/main.css --watch --load-path=node_modules",
+    "sass:build": "sass src/css/main.scss src/css/main-dist/main.css --style=compressed",
+    "build": "npm run sass:build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jferminh/ecf_front_web.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/jferminh/ecf_front_web/issues"
+  },
+  "homepage": "https://github.com/jferminh/ecf_front_web#readme",
+  "dependencies": {
+    "bootstrap": "^5.3.3"
+  },
+  "devDependencies": {
+    "sass": "^1.97.3"
+  }
+}

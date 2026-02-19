@@ -1,0 +1,34 @@
+// 1. Importer les variables
+@import "variables";
+
+// 2. Importer Bootstrap
+//@import "../../node_modules/bootstrap/scss/functions";
+//@import "../../node_modules/bootstrap/scss/variables";
+//@import "../../node_modules/bootstrap/scss/maps";
+//@import "../../node_modules/bootstrap/scss/mixins";
+@import "bootstrap/scss/bootstrap";
+
+// 3. Importer les composants
+@import "components";
+
+// 4. Styles globaux
+body {
+  background-color: $background;
+  color: $text;
+}
+
+:focus-visible {
+  outline: 3px solid $primary !important;
+  outline-offset: 2px;
+}
+
+// Header sticky
+header {
+  background-color: $surface !important;
+}
+
+// Surcharge des couleurs Bootstrap
+.btn-primary {
+  background-color: $primary;
+  border-color: $primary;
+}
