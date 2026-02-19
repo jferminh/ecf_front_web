@@ -74,8 +74,7 @@
         </li>
     </ul>
     <section class="tab-content mt-3">
-        <div id="panel-clients" class="tab-pane fade show active" role="tabpanel"
-             aria-labelledby="tab-clients">
+        <div id="panel-clients" class="tab-pane fade show active" role="tabpanel" aria-labelledby="tab-clients">
             <!-- Barre d'actions : recherche + bouton créer -->
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2 mb-4">
 
@@ -102,7 +101,8 @@
                         </span>
                     </div>
                 </div>
-                <!-- Bouton Créer -->
+
+                <!-- Bouton Créer clients -->
                 <div class="text-md-end mt-2 mt-md-0">
                     <a href="../src/pages/clients/form.html" class="btn btn-primary">
                         <span class="d-none d-sm-inline">+ Créer un client</span>
@@ -111,6 +111,7 @@
                 </div>
             </div>
 
+            <!-- Tableau des Clients -->
             <div class="table-responsive">
                 <table class="table table-hover align-middle">
                     <!-- Caption pour l'accessibilité -->
@@ -201,7 +202,8 @@
                 </table>
 
             </div>
-            <!--            </div>-->
+
+            <!-- PAGINATION DES CLIENTS -->
             <nav aria-label="Pagination des clients" class="mt-3">
                 <ul class="pagination pagination-sm justify-content-center mb-0">
                     <!-- Bouton Précédent (désactivé car on est en page 1) -->
@@ -234,13 +236,141 @@
             </nav>
         </div>
 
-        <div
-                class="tab-pane fade"
-                id="panel-prospects"
-                role="tabpanel"
-                aria-labelledby="tab-prospects"
-        >
-            <p>Contenu de l’onglet Prospects.</p>
+        <div id="panel-prospects" class="tab-pane fade" role="tabpanel" aria-labelledby="tab-prospects">
+            <!-- Barre d'actions Prospects -->
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2 mb-4">
+
+                <!-- Champ de recherche Prospects -->
+                <div class="flex-grow-1">
+                    <label for="search-prospects" class="form-label visually-hidden">
+                        Rechercher un prospect
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-white" id="search-prospects-addon">🔍</span>
+                        <input
+                                type="search"
+                                id="search-prospects"
+                                class="form-control border-end-0"
+                                placeholder="Rechercher par raison sociale, email ou ville..."
+                                aria-describedby="search-prospects-addon"
+                        >
+                        <span class="input-group-text bg-white border-start-0">
+                            <button class="btn btn-link p-0 text-decoration-none" type="button">
+                                ✕
+                            </button>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Bouton Créer Prospect -->
+                <div class="text-md-end mt-2 mt-md-0">
+                    <a href="../src/pages/clients/form.html" class="btn btn-primary">
+                        <span class="d-none d-sm-inline">+ Créer un prospect</span>
+                        <span class="d-inline d-sm-none">+ Créer</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tableau des prospects -->
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <caption class="text-muted">
+                        Liste des prospects (données en dur pour l'ECF).
+                    </caption>
+                    <thead class="table-light">
+                    <tr>
+                        <th scope="col">Raison sociale</th>
+                        <th scope="col">Email</th>
+                        <th scope="col" class="d-none d-md-table-cell">Télephone</th>
+                        <th scope="col">Ville</th>
+                        <th scope="col" class="d-none d-lg-table-cell">Intérêt</th>
+                        <th scope="col" class="text-end">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Prospect 1 -->
+                    <tr>
+                        <th scope="row">Green Corp</th>
+                        <td>contact@greencorp.fr</td>
+                        <td class="d-none d-md-table-cell">02 34 56 78 90</td>
+                        <td>Rennes</td>
+                        <td class="d-none d-lg-table-cell">Fort</td>
+                        <td class="text-end">
+                            <a href="../src/pages/prospects/form.html" class="btn btn-sm btn-outline-secondary me-1" title="Modifier">
+                                ⚙️
+                            </a>
+                            <a href="../src/pages/prospects/detail.html" class="btn btn-sm btn-outline-primary me-1" title="Voir détails">
+                                📍
+                            </a>
+                            <button type="button" class="btn btn-sm btn-outline-danger" title="Supprimer">
+                                🗑️
+                            </button>
+                        </td>
+                    </tr>
+                    <!-- Prospect 2 -->
+                    <tr>
+                        <th scope="row">StartUply</th>
+                        <td>hello@startuply.com</td>
+                        <td class="d-none d-md-table-cell">03 98 76 54 32</td>
+                        <td>Bordeaux</td>
+                        <td class="d-none d-lg-table-cell">Moyen</td>
+                        <td class="text-end">
+                            <a href="../src/pages/prospects/form.html" class="btn btn-sm btn-outline-secondary me-1" title="Modifier">
+                                ⚙️
+                            </a>
+                            <a href="../src/pages/prospects/detail.html" class="btn btn-sm btn-outline-primary me-1" title="Voir détails">
+                                📍
+                            </a>
+                            <button type="button" class="btn btn-sm btn-outline-danger" title="Supprimer">
+                                🗑️
+                            </button>
+                        </td>
+                    </tr>
+                    <!-- Prospect 3 -->
+                    <tr>
+                        <th scope="row">FutureSoft</th>
+                        <td>sales@futuresoft.io</td>
+                        <td class="d-none d-md-table-cell">04 11 22 33 44</td>
+                        <td>Marseille</td>
+                        <td class="d-none d-lg-table-cell">Faible</td>
+                        <td class="text-end">
+                            <a href="../src/pages/prospects/form.html" class="btn btn-sm btn-outline-secondary me-1" title="Modifier">
+                                ⚙️
+                            </a>
+                            <a href="../src/pages/prospects/detail.html" class="btn btn-sm btn-outline-primary me-1" title="Voir détails">
+                                📍
+                            </a>
+                            <button type="button" class="btn btn-sm btn-outline-danger" title="Supprimer">
+                                🗑️
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination Prospects -->
+            <nav aria-label="Pagination des prospects" class="mt-3">
+                <ul class="pagination pagination-sm justify-content-center mb-0">
+                    <li class="page-item disabled" aria-disabled="true">
+                        <span class="page-link">Précédent</span>
+                    </li>
+                    <li class="page-item active" aria-current="page">
+                        <span class="page-link">1</span>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Aller à la page 2">2</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Aller à la page 3">3</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Aller à la page suivante">
+                            Suivant
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </section>
 
