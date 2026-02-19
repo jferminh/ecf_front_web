@@ -6,7 +6,9 @@
 
     <!-- Rendre la page responsive sur mobile -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../src/css/main.css">
+
 
 </head>
 <body>
@@ -108,11 +110,101 @@
                     </a>
                 </div>
             </div>
-            <div class="bg-light p-4 rounded">
-                <p class="text-muted mb-0">
-                    Tableau des clients à venir ici (prochaine étape).
-                </p>
-            </div>
+<!--            <div class="bg-light p-4 rounded">-->
+                <!--                <p class="text-muted mb-0">-->
+                <!--                    Tableau des clients à venir ici (prochaine étape).-->
+                <!--                </p>-->
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <!-- Caption pour l'accessibilité -->
+                        <caption class="text-muted">
+                            Liste des Clients (données de démonstration en dur pour l'ECF).
+                        </caption>
+
+                        <!-- En-tête du tableau -->
+                        <thead class="table-light">
+                        <tr>
+                            <th scope="col">Raison sociale</th>
+                            <th scope="col">Email</th>
+                            <th scope="col" class="d-none d-md-table-cell">Téléphone</th>
+                            <th scope="col">Ville</th>
+                            <th scope="col" class="d-none d-lg-table-cell">Chiffres d'affaires (€)</th>
+                            <th scope="col" class="text-end">Actions</th>
+                        </tr>
+                        </thead>
+
+                        <!-- Corp du tableau -->
+                        <tbody>
+                        <!-- Ligne 1 : ACME -->
+                        <tr>
+                            <th scope="row">ACME Corporation</th>
+                            <td>contact@acme.fr</td>
+                            <td class="d-none d-md-table-cell">01 23 45 67 89</td>
+                            <td>Paris</td>
+                            <td class="d-none d-lg-table-cell">150 000</td>
+                            <td class="text-end">
+                                <a href="../src/pages/clients/form.html" class="btn btn-sm btn-outline-secondary me-1"
+                                   title="Modifier">
+                                    ⚙️
+                                </a>
+                                <a href="../src/pages/clients/detail.html" class="btn btn-sm btn-outline-primary me-1"
+                                   title="Voir détails">
+                                    📍
+                                </a>
+                                <button type="button" class="btn btn-sm btn-outline-danger" title="Supprimer">
+                                    🗑️
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Ligne 2 : TechStart -->
+                        <tr>
+                            <th scope="row">TechStart SARL</th>
+                            <td>info@techstart.fr</td>
+                            <td class="d-none d-md-table-cell">09 87 65 43 21</td>
+                            <td>Lyon</td>
+                            <td class="d-none d-lg-table-cell">85 000</td>
+                            <td class="text-end">
+                                <a href="../src/pages/clients/form.html" class="btn btn-sm btn-outline-secondary me-1"
+                                   title="Modifier">
+                                    ⚙️
+                                </a>
+                                <a href="../src/pages/clients/detail.html" class="btn btn-sm btn-outline-primary me-1"
+                                   title="Voir détails">
+                                    📍
+                                </a>
+                                <button type="button" class="btn btn-sm btn-outline-danger" title="Supprimer">
+                                    🗑️
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Ligne 3 : WebCo -->
+                        <tr>
+                            <th scope="row">WebCo</th>
+                            <td>hello@webco.fr</td>
+                            <td class="d-none d-md-table-cell">01 47 25 83 69</td>
+                            <td>Nice</td>
+                            <td class="d-none d-lg-table-cell">220 000</td>
+                            <td class="text-end">
+                                <a href="../src/pages/clients/form.html" class="btn btn-sm btn-outline-secondary me-1"
+                                   title="Modifier">
+                                    ⚙️
+                                </a>
+                                <a href="../src/pages/clients/detail.html" class="btn btn-sm btn-outline-primary me-1"
+                                   title="Voir détails">
+                                    📍
+                                </a>
+                                <button type="button" class="btn btn-sm btn-outline-danger" title="Supprimer">
+                                    🗑️
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+<!--            </div>-->
         </div>
 
         <div
