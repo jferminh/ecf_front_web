@@ -45,52 +45,52 @@
         <section aria-labelledby="titre-societe" class="card mb-4">
             <div class="card-body">
                 <h2 class="card-title h5 mb-3" id="titre-societe">Information Société</h2>
-            </div>
 
-            <!-- Raison sociale -->
-            <div class="mb-3">
-                <label for="raison-sociale" class="form-label">
-                    Raison sociale <span class="text-danger" aria-hidden="true">*</span>
-                </label>
-                <input
-                        type="text"
-                        class="form-control"
-                        id="raison-sociale"
-                        name="raisonSociale"
-                        placeholder="Ex : ACME Corporation"
-                        required
-                        autocomplete="organization"
-                        aria-required="true"
-                        aria-describedby="raison-sociale-aide"
-                >
-                <div id="raison-sociale-aide" class="form-text">
-                    Doit être unique parmi tous les clients et prospects.
+                <!-- Raison sociale -->
+                <div class="mb-3">
+                    <label for="raison-sociale" class="form-label">
+                        Raison sociale <span class="text-danger" aria-hidden="true">*</span>
+                    </label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="raison-sociale"
+                            name="raisonSociale"
+                            placeholder="Ex : ACME Corporation"
+                            required
+                            autocomplete="organization"
+                            aria-required="true"
+                            aria-describedby="raison-sociale-aide"
+                    >
+                    <div id="raison-sociale-aide" class="form-text">
+                        Doit être unique parmi tous les clients et prospects.
+                    </div>
+
+                    <!-- Zone d'erreur (vide pour l'instant, remplie par JS) -->
+                    <div id="raison-sociale-erreur" class="invalid-feedback" role="alert">
+                        La raison sociale est obligatoire et doit être unique.
+                    </div>
                 </div>
 
-                <!-- Zone d'erreur (vide pour l'instant, remplie par JS) -->
-                <div id="raison-sociale-erreur" class="invalid-feedback" role="alert">
-                    La raison sociale est obligatoire et doit être unique.
-                </div>
-            </div>
-
-            <!-- Email -->
-            <div>
-                <label for="email-client" class="form-label">
-                    Email <span class="text-danger" aria-hidden="true">*</span>
-                </label>
-                <input
-                        type="email"
-                        class="form-control"
-                        id="email-client"
-                        name="email"
-                        placeholder="Ex : contact@societe.fr"
-                        required
-                        autocomplete="email"
-                        aria-required="true"
-                        aria-describedby="email-client-erreur"
-                >
-                <div id="email-client-erreur" class="invalid-feedback" role="alert">
-                    Veuillez saisir une adresse email valide (ex : contact@societe.fr).
+                <!-- Email -->
+                <div class="mb-3">
+                    <label for="email-client" class="form-label">
+                        Email <span class="text-danger" aria-hidden="true">*</span>
+                    </label>
+                    <input
+                            type="email"
+                            class="form-control"
+                            id="email-client"
+                            name="email"
+                            placeholder="Ex : contact@societe.fr"
+                            required
+                            autocomplete="email"
+                            aria-required="true"
+                            aria-describedby="email-client-erreur"
+                    >
+                    <div id="email-client-erreur" class="invalid-feedback" role="alert">
+                        Veuillez saisir une adresse email valide (ex : contact@societe.fr).
+                    </div>
                 </div>
             </div>
         </section>
@@ -104,7 +104,7 @@
 
                     <!-- Téléphone -->
                     <div class="col-12 col-md-6">
-                        <label for="telephone">Téléphone <span class="text-danger" aria-hidden="true">*</span></label>
+                        <label for="telephone" class="form-label">Téléphone <span class="text-danger" aria-hidden="true">*</span></label>
                         <input
                                 type="tel"
                                 id="telephone"
@@ -121,57 +121,143 @@
                         <div id="telephone-erreur" class="invalid-feedback" role="alert">
                             Le téléphone doit contenir exactement 10 chiffres.
                         </div>
-
-                        <!-- CA annuel -->
-                        <div class="col-12 col-md-6">
-                            <label for="ca-annuel" class="form-label">
-                                CA annuel (€) <span class="text-danger" aria-hidden="true">*</span>
-                            </label>
-                            <div class="input-group">
-                                <input
-                                        type="number"
-                                        id="ca-annuel"
-                                        name="chiffreAffaire"
-                                        class="form-control"
-                                        placeholder="Ex : 150000"
-                                        required
-                                        min="200"
-                                        aria-required="true"
-                                        aria-describedby="ca-aide ca-erreur"
-                                >
-                                <span class="input-group-text">€</span>
-                            </div>
-                            <div id="ca-aide" class="form-text">Minimum 200€.</div>
-                            <div id="ca-erreur" class="invalid-feedback" role="alert">
-                                Le CA annuel doit être supérieur ou égal à 200€.
-                            </div>
-                        </div>
-
-                        <!-- Nombre d'employés -->
-                        <div class="col-12 col-md-6">
-                            <label for="nb-employes" class="form-label">
-                                Nombre d'employés <span class="text-danger" aria-hidden="true">*</span>
-                            </label>
+                    </div>
+                    <!-- CA annuel -->
+                    <div class="col-12 col-md-6">
+                        <label for="ca-annuel" class="form-label">
+                            CA annuel (€) <span class="text-danger" aria-hidden="true">*</span>
+                        </label>
+                        <div class="input-group">
                             <input
                                     type="number"
-                                    id="nb-employes"
-                                    name="nbEmployes"
+                                    id="ca-annuel"
+                                    name="chiffreAffaire"
                                     class="form-control"
-                                    placeholder="Ex : 45"
+                                    placeholder="Ex : 150000"
                                     required
-                                    min="1"
+                                    min="200"
                                     aria-required="true"
-                                    aria-describedby="nb-employes-erreur"
+                                    aria-describedby="ca-aide ca-erreur"
                             >
-                            <div id="nb-employes-erreur" class="invalid-feedback" role="alert">
-                                Le nombre d'employés doit être supérieur ou égal à 1.
-                            </div>
+                            <span class="input-group-text">€</span>
+                        </div>
+                        <div id="ca-aide" class="form-text">Minimum 200€.</div>
+                        <div id="ca-erreur" class="invalid-feedback" role="alert">
+                            Le CA annuel doit être supérieur ou égal à 200€.
                         </div>
                     </div>
+
+                    <!-- Nombre d'employés -->
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="nb-employes" class="form-label">
+                            Nombre d'employés <span class="text-danger" aria-hidden="true">*</span>
+                        </label>
+                        <input
+                                type="number"
+                                id="nb-employes"
+                                name="nbEmployes"
+                                class="form-control"
+                                placeholder="Ex : 45"
+                                required
+                                min="1"
+                                aria-required="true"
+                                aria-describedby="nb-employes-erreur"
+                        >
+                        <div id="nb-employes-erreur" class="invalid-feedback" role="alert">
+                            Le nombre d'employés doit être supérieur ou égal à 1.
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
 
+        <!-- ======= SECTION 3 : ADRESSE POSTALE ======= -->
+        <section aria-labelledby="titre-adresse" class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title h5 mb-3" id="titre-adresse">Adresse Postale</h2>
+
+                <!-- Rue -->
+                <div class="mb-3">
+                    <label for="rue" class="form-label">
+                        Rue <span class="text-danger" aria-hidden="true">*</span>
+                    </label>
+                    <input
+                            type="text"
+                            id="rue"
+                            name="rue"
+                            class="form-control"
+                            placeholder="Ex : 15 rue de la Paix"
+                            required
+                            autocomplete="street-address"
+                            aria-required="true"
+                            aria-describedby="rue-erreur"
+                    >
+                    <div id="rue-erreur" class="invalid-feedback" role="alert">
+                        La rue est obligatoire.
+                    </div>
+                </div>
+
+                <!-- Code postal + Ville sur la même ligne -->
+                <div class="row g-3 mb-3">
+                    <div class="col-12 col-sm-4">
+                        <label for="code-postal" class="form-label">
+                            Code postal <span class="text-danger" aria-hidden="true">*</span>
+                        </label>
+                        <input
+                                type="text"
+                                id="code-postal"
+                                name="codePostal"
+                                class="form-control"
+                                placeholder="Ex : 75002"
+                                required
+                                autocomplete="postal-code"
+                                aria-required="true"
+                                aria-describedby="cp-erreur"
+                                pattern="[0-9]{5}"
+                                maxlength="5"
+                        >
+                        <div id="cp-erreur" class="invalid-feedback" role="alert">
+                            Le code postal doit contenir exactement 5 chiffres.
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-8">
+                        <label for="ville" class="form-label">
+                            Ville <span class="text-danger" aria-hidden="true">*</span>
+                        </label>
+                        <input
+                                type="text"
+                                id="ville"
+                                name="ville"
+                                class="form-control"
+                                placeholder="Ex : Paris"
+                                required
+                                autocomplete="address-level2"
+                                aria-required="true"
+                                aria-describedby="ville-erreur"
+                        >
+                        <div id="ville-erreur" class="invalid-feedback" role="alert">
+                            La ville est obligatoire.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bouton géolocalisation -->
+                <div class="d-grid d-sm-block">
+                    <button
+                            type="button"
+                            id="btn-geoloc"
+                            class="btn btn-outline-secondary"
+                            aria-describedby="geoloc-aide"
+                    >
+                        📍 Obtenir les coordonnées GPS
+                    </button>
+                    <div id="geoloc-aide" class="form-text mt-1">
+                        Utilise l'API Adresse.gouv.fr à partir de la rue, CP et ville.
+                    </div>
+                </div>
+            </div>
+        </section>
 
     </form>
 </main>
