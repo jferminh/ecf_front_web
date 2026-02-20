@@ -104,7 +104,8 @@
 
                     <!-- Téléphone -->
                     <div class="col-12 col-md-6">
-                        <label for="telephone" class="form-label">Téléphone <span class="text-danger" aria-hidden="true">*</span></label>
+                        <label for="telephone" class="form-label">Téléphone <span class="text-danger"
+                                                                                  aria-hidden="true">*</span></label>
                         <input
                                 type="tel"
                                 id="telephone"
@@ -259,8 +260,46 @@
             </div>
         </section>
 
+        <!-- ======= BARRE D'ACTIONS ======= -->
+        <div class="d-flex flex-column flex-sm-row justify-content-between gap-2 mt-2 mb-5">
+
+            <!-- Annuler -->
+            <a
+                    href="../../index.html"
+                    class="btn btn-outline-secondary"
+                    id="btn-annuler"
+            >
+                ❌ Annuler
+            </a>
+
+            <div class="d-flex flex-column flex-sm-row gap-2">
+
+                <!-- Enregistrer brouillon -->
+                <button
+                        type="button"
+                        id="btn-brouillon"
+                        class="btn btn-outline-primary"
+                >
+                    💾 Enregistrer brouillon
+                </button>
+
+                <!-- Enregistrer le client -->
+                <button
+                        type="submit"
+                        id="btn-soumettre"
+                        class="btn btn-primary"
+                >
+                    ✅ Enregistrer le client
+                </button>
+
+            </div>
+        </div>
     </form>
 </main>
+<!-- Bootstrap JS local -->
+<script src="../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Mon JS (validation, brouillon) à venir -->
+<script src="../../js/form-client.js"></script>
 
 </body>
 </html>
