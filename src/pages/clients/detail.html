@@ -51,7 +51,7 @@
     </nav>
 </header>
 
-<!-- Contenu principal à venir -->
+<!-- Contenu principal -->
 <main class="container my-4" role="main">
 
     <!-- ======= SECTION 1 : FICHE SYNTHÉTIQUE ======= -->
@@ -114,8 +114,95 @@
             </div>
         </div>
     </section>
-    <!-- Sections suivantes à venir -->
-    <p class="text-muted">Carte et météo en cours…</p>
+
+    <!-- ======= SECTION 2 : CARTE ======= -->
+    <section aria-labelledby="titre-carte" class="card mb-4">
+        <div class="card-body">
+            <h2 class="card-title h5 mb-3" id="titre-carte">
+                Localisation du client
+            </h2>
+
+            <div
+                id="carte-client"
+                style="height: 400px; border-radius: 0.5rem;"
+                role="application"
+                aria-label="Carte de localisation du client ACME Corporation à Paris"
+                tabindex="0"
+            >
+                <noscript>
+                    <p class="text-muted p-3">
+                        La carte interactive nécessite JavaScript.
+                        Adresse : 15 rue de la Paix, 75002 Paris.
+                    </p>
+                </noscript>
+            </div>
+
+            <!-- Coordonnées GPS (mises à jour par JS) -->
+            <p class="small text-muted mt-2 mb-0">
+                <span aria-hidden="true">📍</span>Coordonnées GPS :
+                <span id="valeur-coords">Non calculées</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- ======= SECTION 3 : MÉTÉO ======= -->
+    <section aria-labelledby="titre-meteo" class="card mb-4">
+        <div class="card-body">
+            <h2 class="card-title h5 mb-3" id="titre-meteo">
+                Météo à l'adresse du client
+            </h2>
+
+            <div id="widget-meteo" aria-live="polite">
+
+                <!-- Données statiques affichées avant que JS charge la météo -->
+                <div class="row g-3 align-items-center">
+
+                    <!-- Icône + température principale -->
+                    <div class="col-auto text-center">
+                        <span style="font-size:3rem;" aria-hidden="true">☀️</span>
+                        <p class="mb-0 fw-bold">18°C</p>
+                        <p class="small text-muted mb-0">Ensoleillé</p>
+                    </div>
+
+                    <!-- Détails météo -->
+                    <div class="col">
+                        <ul class="list-unstyled mb-0">
+                            <li>
+                                <span aria-hidden="true">💧 </span>
+                                Humidité : <strong>65%</strong>
+                            </li>
+                            <li>
+                                <span aria-hidden="true">💨 </span>
+                                Vent : <strong>12 km/h</strong>
+                            </li>
+                            <li>
+                                <span aria-hidden="true">🌡️ </span>
+                                Pression : <strong>1015 hPa</strong>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Source de données -->
+                    <div class="col-12 col-md-4">
+                        <p class="small text-muted mb-0">
+                            Source : API Météo France<br>
+                            Dernière mise à jour : il y a 10 min
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Fallback si JS désactivé -->
+                <noscript>
+                    <p class="text-muted mt-2">
+                        Les données météo en temps réel nécessitent JavaScript.
+                    </p>
+                </noscript>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sections actions à venir -->
+    <p class="text-muted">Actions secondaires en cours…</p>
 </main>
 
 <!-- Footer -->
