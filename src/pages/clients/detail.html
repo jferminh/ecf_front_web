@@ -1,10 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <title>Détail Client - ECF Front-End</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fiche détaillée d'un client avec localisation et météo.">
 
+    <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../../css/main.css">
+</head>
+
+<body class="bg-light">
+
+<!-- =================== HEADER =================== -->
+<header class="bg-white border-bottom shadow-sm sticky-top" role="banner">
+    <nav
+            class="container d-flex align-items-center justify-content-between py-3"
+            aria-label="Navigation fiche client"
+    >
+
+        <!-- Retour vers la liste -->
+        <a href="../../index.html" class="btn btn-outline-secondary btn-sm">
+            ← Retour à la liste
+        </a>
+
+        <!-- Titre de la fiche -->
+        <div class="text-center">
+            <p class="m-0 fw-bold">ACME Corporation</p>
+            <p class="m-0 small text-muted">Fiche client détaillée</p>
+        </div>
+
+        <!-- Actions rapides -->
+        <div class="d-flex gap-2">
+            <a
+                    href="form.html"
+                    class="btn btn-outline-secondary btn-sm"
+                    aria-label="Modifier le client ACME Corporation"
+            >
+                ⚙️ Modifier
+            </a>
+            <button
+                    type="button"
+                    class="btn btn-outline-danger btn-sm"
+                    aria-label="Supprimer le client ACME Corporation"
+            >
+                🗑️ Supprimer
+            </button>
+        </div>
+
+    </nav>
+</header>
+
+<!-- Contenu principal à venir -->
+<main class="container my-4" role="main">
+    <p class="text-muted">Contenu en cours de construction…</p>
+</main>
+
+<!-- Footer -->
+<footer class="border-top py-3 mt-4">
+    <div class="container d-flex flex-column flex-md-row justify-content-between gap-2">
+        <p class="mb-0 small text-muted">© 2026 ECF Front-End - AFPA</p>
+        <p class="mb-0 small">
+            <a href="#" class="link-secondary">RGPD</a> ·
+            <a href="#" class="link-secondary">Accessibilité</a> ·
+            <a href="#" class="link-secondary">Mentions légales</a>
+        </p>
+    </div>
+</footer>
+
+<!-- Bootstrap JS local -->
+<script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

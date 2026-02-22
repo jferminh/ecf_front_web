@@ -1,0 +1,11 @@
+/node_modules/
+.idea
+*.iml
+*.iws
+out/
+# Maven / Gradle / Java
+target/
+build/
+*.class
+*.jar
+*.war
