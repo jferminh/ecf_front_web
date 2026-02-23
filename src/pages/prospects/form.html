@@ -1,10 +1,302 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Nouveau Prospect - ECF Front-End</title>
+    <meta name="description" content="Formulaire de création d'un nouveau prospect.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="../../../src/css/main.css">
+    <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../src/css/main.css">
 </head>
-<body>
+<body class="bg-light">
+<!-- HEADER FORMULAIRE -->
+<header class="bg-white border-bottom shadow-sm sticky-top" role="banner">
+    <nav class="container d-flex align-items-center justify-content-between py-3"
+         aria-label="Navigation formulaire client">
+
+        <!-- Bouton retour vers la liste -->
+        <a href="../../index.html" class="btn btn-outline-secondary btn-sm">
+            ← Retour à la liste
+        </a>
+        <!-- Titre de la page -->
+        <div class="text-center">
+            <p class="m-0 fw-bold">Nouveau Prospect</p>
+            <p class="m-0 small text-muted">Création d'une fiche prospect</p>
+        </div>
+
+        <!-- Indicateur brouillon -->
+        <span class="badge bg-light text-secondary border">
+                📄 Brouillon auto
+            </span>
+
+    </nav>
+</header>
+
+<main class="container my-4" role="main">
+
+    <!-- Formulaire principal -->
+    <form id="form-prospect" aria-label="Formulaire de création d'un prospect">
+    <p class="text-muted mb-4">
+            Les champs marqués d'un <span class="text-danger fw-bold">*</span> sont obligatoires.
+        </p>
+
+        <!-- ======= SECTION 1 : INFORMATIONS SOCIÉTÉ ======= -->
+        <section aria-labelledby="titre-societe" class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title h5 mb-3" id="titre-societe">Information Société</h2>
+
+                <!-- Raison sociale -->
+                <div class="mb-3">
+                    <label for="raison-sociale" class="form-label">
+                        Raison sociale <span class="text-danger" aria-hidden="true">*</span>
+                    </label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="raison-sociale"
+                            name="raisonSociale"
+                            placeholder="Ex : ACME Corporation"
+                            required
+                            autocomplete="organization"
+                            aria-required="true"
+                            aria-describedby="raison-sociale-aide"
+                    >
+                    <div id="raison-sociale-aide" class="form-text">
+                        Doit être unique parmi tous les clients et prospects.
+                    </div>
+
+                    <!-- Zone d'erreur (vide pour l'instant, remplie par JS) -->
+                    <div id="raison-sociale-erreur" class="invalid-feedback" role="alert">
+                        La raison sociale est obligatoire et doit être unique.
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3">
+                    <label for="email-client" class="form-label">
+                        Email <span class="text-danger" aria-hidden="true">*</span>
+                    </label>
+                    <input
+                            type="email"
+                            class="form-control"
+                            id="email-client"
+                            name="email"
+                            placeholder="Ex : contact@societe.fr"
+                            required
+                            autocomplete="email"
+                            aria-required="true"
+                            aria-describedby="email-client-erreur"
+                    >
+                    <div id="email-client-erreur" class="invalid-feedback" role="alert">
+                        Veuillez saisir une adresse email valide (ex : contact@societe.fr).
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2 : COORDONNÉES & QUALIFICATION PROSPECT -->
+        <section aria-labelledby="titre-coords-p" class="card mb-4">
+            <div class="card-body">
+
+                <h2 class="card-title h5 mb-3" id="titre-coords-p">
+                    Coordonnées &amp; Qualification
+                </h2>
+
+                <div class="row g-3">
+
+                    <!-- Téléphone -->
+                    <div class="col-12 col-md-6">
+                        <label for="telephone-p" class="form-label">
+                            Téléphone <span class="text-danger" aria-hidden="true">*</span>
+                        </label>
+                        <input
+                                type="tel"
+                                id="telephone-p"
+                                name="telephone"
+                                class="form-control"
+                                placeholder="Ex : 02 34 56 78 90"
+                                required
+                                autocomplete="tel"
+                                aria-required="true"
+                                aria-describedby="tel-p-erreur"
+                                pattern="[0-9]{10}"
+                                maxlength="10"
+                        >
+                        <div id="tel-p-erreur" class="invalid-feedback" role="alert">
+                            Le téléphone doit contenir exactement 10 chiffres.
+                        </div>
+                    </div>
+
+                    <!-- Niveau d'intérêt (spécifique prospect) -->
+                    <div class="col-12 col-md-6">
+                        <label for="interet-prospect" class="form-label">
+                            Niveau d'intérêt
+                        </label>
+                        <select
+                                id="interet-prospect"
+                                name="niveauInteret"
+                                class="form-select"
+                                aria-describedby="interet-aide"
+                        >
+                            <option value="fort" selected>Fort</option>
+                            <option value="moyen">Moyen</option>
+                            <option value="faible">Faible</option>
+                        </select>
+                        <div id="interet-aide" class="form-text">
+                            Évaluation du potentiel commercial.
+                        </div>
+                    </div>
+
+                    <!-- Date de prospection (spécifique prospect) -->
+                    <div class="col-12 col-md-6">
+                        <label for="date-prospection" class="form-label">
+                            Date de prospection
+                        </label>
+                        <input
+                                type="date"
+                                id="date-prospection"
+                                name="dateProspection"
+                                class="form-control"
+                                aria-describedby="date-p-aide"
+                        >
+                        <div id="date-p-aide" class="form-text">
+                            Date du premier contact avec ce prospect.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ======= SECTION 3 : ADRESSE POSTALE ======= -->
+        <section aria-labelledby="titre-adresse" class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title h5 mb-3" id="titre-adresse">Adresse Postale</h2>
+
+                <!-- Rue -->
+                <div class="mb-3">
+                    <label for="rue" class="form-label">
+                        Rue <span class="text-danger" aria-hidden="true">*</span>
+                    </label>
+                    <input
+                            type="text"
+                            id="rue"
+                            name="rue"
+                            class="form-control"
+                            placeholder="Ex : 15 rue de la Paix"
+                            required
+                            autocomplete="street-address"
+                            aria-required="true"
+                            aria-describedby="rue-erreur"
+                    >
+                    <div id="rue-erreur" class="invalid-feedback" role="alert">
+                        La rue est obligatoire.
+                    </div>
+                </div>
+
+                <!-- Code postal + Ville sur la même ligne -->
+                <div class="row g-3 mb-3">
+                    <div class="col-12 col-sm-4">
+                        <label for="code-postal" class="form-label">
+                            Code postal <span class="text-danger" aria-hidden="true">*</span>
+                        </label>
+                        <input
+                                type="text"
+                                id="code-postal"
+                                name="codePostal"
+                                class="form-control"
+                                placeholder="Ex : 75002"
+                                required
+                                autocomplete="postal-code"
+                                aria-required="true"
+                                aria-describedby="cp-erreur"
+                                pattern="[0-9]{5}"
+                                maxlength="5"
+                        >
+                        <div id="cp-erreur" class="invalid-feedback" role="alert">
+                            Le code postal doit contenir exactement 5 chiffres.
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-8">
+                        <label for="ville" class="form-label">
+                            Ville <span class="text-danger" aria-hidden="true">*</span>
+                        </label>
+                        <input
+                                type="text"
+                                id="ville"
+                                name="ville"
+                                class="form-control"
+                                placeholder="Ex : Paris"
+                                required
+                                autocomplete="address-level2"
+                                aria-required="true"
+                                aria-describedby="ville-erreur"
+                        >
+                        <div id="ville-erreur" class="invalid-feedback" role="alert">
+                            La ville est obligatoire.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bouton géolocalisation -->
+                <div class="d-grid d-sm-block">
+                    <button
+                            type="button"
+                            id="btn-geoloc"
+                            class="btn btn-outline-secondary"
+                            aria-describedby="geoloc-aide"
+                    >
+                        📍 Obtenir les coordonnées GPS
+                    </button>
+                    <div id="geoloc-aide" class="form-text mt-1">
+                        Utilise l'API Adresse.gouv.fr à partir de la rue, CP et ville.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======= BARRE D'ACTIONS ======= -->
+        <div class="d-flex flex-column flex-sm-row justify-content-between gap-2 mt-2 mb-5">
+
+            <!-- Annuler -->
+            <a
+                    href="../../index.html"
+                    class="btn btn-outline-secondary"
+                    id="btn-annuler"
+            >
+                ❌ Annuler
+            </a>
+
+            <div class="d-flex flex-column flex-sm-row gap-2">
+
+                <!-- Enregistrer brouillon -->
+                <button
+                        type="button"
+                        id="btn-brouillon"
+                        class="btn btn-outline-primary"
+                >
+                    💾 Enregistrer brouillon
+                </button>
+
+                <!-- Enregistrer le client -->
+                <button
+                        type="submit"
+                        id="btn-soumettre"
+                        class="btn btn-primary"
+                >
+                    ✅ Enregistrer le prospect
+                </button>
+
+            </div>
+        </div>
+    </form>
+</main>
+<!-- Bootstrap JS local -->
+<script src="../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Mon JS (validation, brouillon) à venir -->
+<script src="../../js/form-prospect.js"></script>
 
 </body>
 </html>
