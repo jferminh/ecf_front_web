@@ -172,4 +172,25 @@ document.addEventListener('DOMContentLoaded', function() {
         // Plus tard : remplacer par un appel fetch() vers l'API backend
         console.log("✅ Formulaire valide, prêt à être envoyé.");
     });
+
+    // =====================================================
+    // PHASE JS-2 : Bouton "Enregistrer brouillon"
+    // =====================================================
+
+    const btnBrouillon = document.getElementById("btn-brouillon");
+    const CLE_BROUILLON = "brouillon-client";
+
+    if (btnBrouillon) {
+        btnBrouillon.addEventListener("click", function () {
+            // 1. Lire tous les champs du formulaire
+            const donnees = lireFormulaire(form);
+
+            // 2. Sauvegarder dans LocalStorage
+            sauvegarderBrouillon(CLE_BROUILLON, donnees);
+
+            // 3. Confirmer visuellement à l'utilisateur
+            afficherConfirmationBrouillon(btnBrouillon);
+        });
+    }
+
 });
