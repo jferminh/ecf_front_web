@@ -5,7 +5,7 @@
  */
 
 // On attend que le DOM soit complètement chargé
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('form-client');
 
     // Sécurité : si le formulaire n'existe pas sur la page, on sort
@@ -31,18 +31,18 @@ document.addEventListener('DOMContentLoaded', function() {
         "ca-annuel": {
             valueMissing: "Le chiffre d'affaires est obligatoire.",
             rangeUnderflow: "Le CA annuel doit être supérieur ou égal à 200€.",
-            badInput:     "Veuillez saisir un nombre valide.",
+            badInput: "Veuillez saisir un nombre valide.",
         },
         "nb-employes": {
             valueMissing: "Le nombre d'employés est obligatoire.",
             rangeUnderflow: "Le nombre d'employés doit être supérieur ou égal à 1.",
-            badInput:     "Veuillez saisir un nombre entier valide.",
+            badInput: "Veuillez saisir un nombre entier valide.",
         },
         "rue": {
             valueMissing: "La rue est obligatoire.",
         },
         "code-postal": {
-            valueMissing:    "Le code postal est obligatoire.",
+            valueMissing: "Le code postal est obligatoire.",
             patternMismatch: "Le code postal doit contenir exactement 5 chiffres.",
         },
         "ville": {
@@ -63,12 +63,12 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!messages) return champ.validationMessage;
 
         // Parcourir les états d'erreur possibles
-        if (validite.valueMissing  && messages.valueMissing)  return messages.valueMissing;
-        if (validite.typeMismatch  && messages.typeMismatch)  return messages.typeMismatch;
+        if (validite.valueMissing && messages.valueMissing) return messages.valueMissing;
+        if (validite.typeMismatch && messages.typeMismatch) return messages.typeMismatch;
         if (validite.patternMismatch && messages.patternMismatch) return messages.patternMismatch;
         if (validite.rangeUnderflow && messages.rangeUnderflow) return messages.rangeUnderflow;
-        if (validite.tooShort      && messages.tooShort)      return messages.tooShort;
-        if (validite.badInput      && messages.badInput)      return messages.badInput;
+        if (validite.tooShort && messages.tooShort) return messages.tooShort;
+        if (validite.badInput && messages.badInput) return messages.badInput;
 
         // Fallback sur le message natif HTML5
         return champ.validationMessage;
@@ -78,8 +78,8 @@ document.addEventListener('DOMContentLoaded', function() {
      * ÉTAPE 3.3 : Affiche ou masque l'erreur sur un champ
      */
     function afficherErreur(champ) {
-        const idErreur    = champ.id + "-erreur";
-        const zoneErreur  = document.getElementById(idErreur);
+        const idErreur = champ.id + "-erreur";
+        const zoneErreur = document.getElementById(idErreur);
 
         if (champ.validity.valid) {
             // Champ valide : retirer les classes d'erreur
@@ -192,5 +192,21 @@ document.addEventListener('DOMContentLoaded', function() {
             afficherConfirmationBrouillon(btnBrouillon);
         });
     }
+
+    // =====================================================
+    // PHASE JS-3 : Restaurer le brouillon au chargement
+    // =====================================================
+
+    const brouillonSauvegarde = lireBrouillon(CLE_BROUILLON);
+
+    if (brouillonSauvegarde) {
+        // Remplir les champs avec les données sauvegardées
+        restaurerFormulaire(form, brouillonSauvegarde);
+
+        // Afficher une bannière pour informer l'utilisateur
+        const heure = brouillonSauvegarde._sauvegardeLe || "heure inconnue";
+        afficherBanniereBrouillon(form, heure);
+    }
+
 
 });
