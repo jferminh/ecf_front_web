@@ -156,7 +156,14 @@
                                title="Voir détails">
                                 📍
                             </a>
-                            <button type="button" class="btn btn-sm btn-outline-danger" title="Supprimer">
+                            <button
+                                    type="button"
+                                    class="btn btn-sm btn-outline-danger"
+                                    title="Supprimer ACME Corporation"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modal-suppression"
+                                    data-nom="ACME Corporation"
+                            >
                                 🗑️
                             </button>
                         </td>
@@ -178,7 +185,14 @@
                                title="Voir détails">
                                 📍
                             </a>
-                            <button type="button" class="btn btn-sm btn-outline-danger" title="Supprimer">
+                            <button
+                                    type="button"
+                                    class="btn btn-sm btn-outline-danger"
+                                    title="Supprimer TechStart SARL"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modal-suppression"
+                                    data-nom="TechStart SARL"
+                            >
                                 🗑️
                             </button>
                         </td>
@@ -200,7 +214,14 @@
                                title="Voir détails">
                                 📍
                             </a>
-                            <button type="button" class="btn btn-sm btn-outline-danger" title="Supprimer">
+                            <button
+                                    type="button"
+                                    class="btn btn-sm btn-outline-danger"
+                                    title="Supprimer WebCo"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modal-suppression"
+                                    data-nom="WebCo"
+                            >
                                 🗑️
                             </button>
                         </td>
@@ -520,6 +541,67 @@
         </div>
     </div>
 </div>
+
+<!-- ======= MODAL SUPPRESSION ======= -->
+<div
+        class="modal fade"
+        id="modal-suppression"
+        tabindex="-1"
+        aria-labelledby="modal-suppression-titre"
+        aria-modal="true"
+        role="dialog"
+>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h2 class="modal-title h5" id="modal-suppression-titre">
+                    ⚠️ Confirmation de suppression
+                </h2>
+                <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Fermer la fenêtre de confirmation"
+                ></button>
+            </div>
+
+            <div class="modal-body">
+                <p>
+                    Êtes-vous sûr de vouloir supprimer
+                    <!--
+                      id="nom-entite-suppression" :
+                      JS remplacera ce texte avec le vrai nom de l'entité
+                      en lisant data-nom sur le bouton qui a ouvert la modal
+                    -->
+                    <strong id="nom-entite-suppression">"…"</strong> ?
+                </p>
+                <p class="text-danger mb-0">
+                    <strong>⚠️ Cette action est irréversible.</strong>
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <button
+                        type="button"
+                        class="btn btn-outline-secondary"
+                        data-bs-dismiss="modal"
+                >
+                    Annuler
+                </button>
+                <button
+                        type="button"
+                        class="btn btn-danger"
+                        id="btn-confirmer-suppression"
+                >
+                    Supprimer définitivement
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 
 </body>
 </html>
