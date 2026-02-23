@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="../../css/main.css">
+
 </head>
 
 <body class="bg-light">
@@ -40,9 +41,11 @@
                 ⚙️ Modifier
             </a>
             <button
-                    type="button"
                     class="btn btn-outline-danger btn-sm"
+                    type="button"
                     aria-label="Supprimer le client ACME Corporation"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modal-suppression"
             >
                 🗑️ Supprimer
             </button>
@@ -201,8 +204,33 @@
         </div>
     </section>
 
-    <!-- Sections actions à venir -->
-    <p class="text-muted">Actions secondaires en cours…</p>
+    <!-- ======= SECTION 4 : ACTIONS SECONDAIRES ======= -->
+    <section aria-labelledby="titre-actions" class="card mb-4">
+        <div class="card-body">
+            <h2 class="card-title h5 mb-3" id="titre-actions">
+                Actions supplémentaires
+            </h2>
+            <div class="d-flex flex-wrap gap-2">
+                <a href="#" class="btn btn-outline-secondary">
+                    📄 Voir les contrats
+                </a>
+                <a
+                        href="mailto:contact@acme.fr"
+                        class="btn btn-outline-secondary"
+                >
+                    ✉️ Envoyer un email
+                </a>
+                <button
+                        type="button"
+                        class="btn btn-outline-secondary"
+                        onclick="window.print()"
+                        aria-label="Imprimer la fiche client"
+                >
+                    🖨️ Imprimer la fiche
+                </button>
+            </div>
+        </div>
+    </section>
 </main>
 
 <!-- Footer -->
@@ -217,7 +245,62 @@
     </div>
 </footer>
 
+<!-- ======= MODAL SUPPRESSION ======= -->
+<div
+        class="modal fade"
+        id="modal-suppression"
+        tabindex="-1"
+        aria-labelledby="modal-suppression-titre"
+        aria-modal="true"
+        role="dialog"
+>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h3 class="modal-title h5" id="modal-suppression-titre">
+                    ⚠️ Confirmation de suppression
+                </h3>
+                <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Fermer la fenêtre de confirmation"
+                ></button>
+            </div>
+
+            <div class="modal-body">
+                <p>
+                    Êtes-vous sûr de vouloir supprimer le client
+                    <strong>"ACME Corporation"</strong> ?
+                </p>
+                <p class="text-danger mb-0">
+                    <strong>⚠️ Cette action est irréversible.</strong>
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <button
+                        type="button"
+                        class="btn btn-outline-secondary"
+                        data-bs-dismiss="modal"
+                >
+                    Annuler
+                </button>
+                <button
+                        type="button"
+                        class="btn btn-danger"
+                        id="btn-confirmer-suppression"
+                >
+                    Supprimer définitivement
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <!-- Bootstrap JS local -->
-<script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
