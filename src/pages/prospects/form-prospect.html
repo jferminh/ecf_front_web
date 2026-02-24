@@ -48,13 +48,13 @@
 
                 <!-- Raison sociale -->
                 <div class="mb-3">
-                    <label for="raison-sociale" class="form-label">
+                    <label for="raison-sociale-p" class="form-label">
                         Raison sociale <span class="text-danger" aria-hidden="true">*</span>
                     </label>
                     <input
                             type="text"
                             class="form-control"
-                            id="raison-sociale"
+                            id="raison-sociale-p"
                             name="raisonSociale"
                             placeholder="Ex : ACME Corporation"
                             required
@@ -67,20 +67,20 @@
                     </div>
 
                     <!-- Zone d'erreur (vide pour l'instant, remplie par JS) -->
-                    <div id="raison-sociale-erreur" class="invalid-feedback" role="alert">
+                    <div id="raison-sociale-p-erreur" class="invalid-feedback" role="alert">
                         La raison sociale est obligatoire et doit être unique.
                     </div>
                 </div>
 
                 <!-- Email -->
                 <div class="mb-3">
-                    <label for="email-client" class="form-label">
+                    <label for="email-prospect" class="form-label">
                         Email <span class="text-danger" aria-hidden="true">*</span>
                     </label>
                     <input
                             type="email"
                             class="form-control"
-                            id="email-client"
+                            id="email-prospect"
                             name="email"
                             placeholder="Ex : contact@societe.fr"
                             required
@@ -88,7 +88,7 @@
                             aria-required="true"
                             aria-describedby="email-client-erreur"
                     >
-                    <div id="email-client-erreur" class="invalid-feedback" role="alert">
+                    <div id="email-prospect-erreur" class="invalid-feedback" role="alert">
                         Veuillez saisir une adresse email valide (ex : contact@societe.fr).
                     </div>
                 </div>
@@ -123,7 +123,7 @@
                                 pattern="[0-9]{10}"
                                 maxlength="10"
                         >
-                        <div id="tel-p-erreur" class="invalid-feedback" role="alert">
+                        <div id="telephone-p-erreur" class="invalid-feedback" role="alert">
                             Le téléphone doit contenir exactement 10 chiffres.
                         </div>
                     </div>
@@ -177,12 +177,12 @@
 
                 <!-- Rue -->
                 <div class="mb-3">
-                    <label for="rue" class="form-label">
+                    <label for="rue-p" class="form-label">
                         Rue <span class="text-danger" aria-hidden="true">*</span>
                     </label>
                     <input
                             type="text"
-                            id="rue"
+                            id="rue-p"
                             name="rue"
                             class="form-control"
                             placeholder="Ex : 15 rue de la Paix"
@@ -191,7 +191,7 @@
                             aria-required="true"
                             aria-describedby="rue-erreur"
                     >
-                    <div id="rue-erreur" class="invalid-feedback" role="alert">
+                    <div id="rue-p-erreur" class="invalid-feedback" role="alert">
                         La rue est obligatoire.
                     </div>
                 </div>
@@ -204,7 +204,7 @@
                         </label>
                         <input
                                 type="text"
-                                id="code-postal"
+                                id="code-postal-p"
                                 name="codePostal"
                                 class="form-control"
                                 placeholder="Ex : 75002"
@@ -215,17 +215,17 @@
                                 pattern="[0-9]{5}"
                                 maxlength="5"
                         >
-                        <div id="cp-erreur" class="invalid-feedback" role="alert">
+                        <div id="code-postal-erreur" class="invalid-feedback" role="alert">
                             Le code postal doit contenir exactement 5 chiffres.
                         </div>
                     </div>
                     <div class="col-12 col-sm-8">
-                        <label for="ville" class="form-label">
+                        <label for="ville-p" class="form-label">
                             Ville <span class="text-danger" aria-hidden="true">*</span>
                         </label>
                         <input
                                 type="text"
-                                id="ville"
+                                id="ville-p"
                                 name="ville"
                                 class="form-control"
                                 placeholder="Ex : Paris"
@@ -234,7 +234,7 @@
                                 aria-required="true"
                                 aria-describedby="ville-erreur"
                         >
-                        <div id="ville-erreur" class="invalid-feedback" role="alert">
+                        <div id="ville-p-erreur" class="invalid-feedback" role="alert">
                             La ville est obligatoire.
                         </div>
                     </div>
