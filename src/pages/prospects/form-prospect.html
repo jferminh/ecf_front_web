@@ -26,9 +26,9 @@
         </div>
 
         <!-- Indicateur brouillon -->
-        <span class="badge bg-light text-secondary border">
-                📄 Brouillon auto
-            </span>
+        <span class="badge bg-light text-secondary border" data-badge-brouillon>
+            📄 Brouillon auto
+        </span>
 
     </nav>
 </header>
@@ -37,7 +37,7 @@
 
     <!-- Formulaire principal -->
     <form id="form-prospect" aria-label="Formulaire de création d'un prospect">
-    <p class="text-muted mb-4">
+        <p class="text-muted mb-4">
             Les champs marqués d'un <span class="text-danger fw-bold">*</span> sont obligatoires.
         </p>
 
@@ -264,7 +264,7 @@
             <a
                     href="../../index.html"
                     class="btn btn-outline-secondary"
-                    id="btn-annuler"
+                    id="btn-annuler-p"
             >
                 ❌ Annuler
             </a>
@@ -274,7 +274,7 @@
                 <!-- Enregistrer brouillon -->
                 <button
                         type="button"
-                        id="btn-brouillon"
+                        id="btn-brouillon-p"
                         class="btn btn-outline-primary"
                 >
                     💾 Enregistrer brouillon
@@ -296,6 +296,7 @@
 <!-- Bootstrap JS local -->
 <script src="../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Mon JS (validation, brouillon) à venir -->
+<script src="../../js/brouillon.js"></script>
 <script src="../../js/form-prospect.js"></script>
 
 </body>
