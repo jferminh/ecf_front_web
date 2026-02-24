@@ -139,3 +139,14 @@ function afficherBanniereBrouillon(formulaire, heureSauvegarde) {
     // Insérer avant le premier élément du formulaire
     formulaire.insertBefore(banniere, formulaire.firstChild);
 }
+
+/**
+ * PHASE JS-5 : Effacer le brouillon
+ *
+ * @param {string} cle
+ */
+function effacerBrouillon(cle) {
+    localStorage.removeItem(cle);
+    console.log("🗑️ Brouillon effacé pour la clé :", cle);
+}
+

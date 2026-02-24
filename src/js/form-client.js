@@ -168,9 +168,16 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // Si tout est valide → le formulaire se soumet normalement
-        // Plus tard : remplacer par un appel fetch() vers l'API backend
-        console.log("✅ Formulaire valide, prêt à être envoyé.");
+        // ✅ Formulaire valide :
+        // 1. Effacer le brouillon (plus besoin)
+        effacerBrouillon(CLE_BROUILLON);
+
+        // 2. Plus tard : remplacer par fetch() vers l'API backend
+        console.log("✅ Formulaire soumis, brouillon effacé.");
+
+        // Pour l'ECF (sans backend) : rediriger vers la liste
+        evenement.preventDefault(); // À retirer quand on aura un backend
+        window.location.href = "../../index.html";
     });
 
     // =====================================================
