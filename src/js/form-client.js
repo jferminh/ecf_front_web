@@ -208,5 +208,62 @@ document.addEventListener('DOMContentLoaded', function () {
         afficherBanniereBrouillon(form, heure);
     }
 
+    // =====================================================
+    // PHASE JS-4 : Auto-sauvegarde
+    // =====================================================
+
+    /**
+     * Indicateur visuel d'auto-sauvegarde (dans le header)
+     * On met à jour le badge "Brouillon auto"
+     */
+    function mettreAJourBadgeBrouillon(statut) {
+        const badge = document.querySelector("[data-badge-brouillon]");
+        if (!badge) return;
+
+        if (statut === "en-cours") {
+            badge.textContent = "📄 Sauvegarde…";
+            badge.className = "badge bg-light text-secondary border";
+        } else if (statut === "sauvegarde") {
+            badge.textContent = "✅ Brouillon sauvegardé";
+            badge.className = "badge bg-success text-white border";
+
+            // Remettre le badge normal après 2 secondes
+            setTimeout(function () {
+                badge.textContent = "📄 Brouillon auto";
+                badge.className = "badge bg-light text-secondary border";
+            }, 2000);
+        }
+    }
+
+// --- Auto-sauvegarde toutes les 30 secondes ---
+    const INTERVALLE_AUTO = 30000; // 30 000 ms = 30 secondes
+
+    setInterval(function () {
+        const donnees = lireFormulaire(form);
+
+        // Ne sauvegarder que si au moins un champ est rempli
+        const aucuneDonnee = Object.values(donnees).every(function (v) {
+            return v === "";
+        });
+
+        if (!aucuneDonnee) {
+            sauvegarderBrouillon(CLE_BROUILLON, donnees);
+            mettreAJourBadgeBrouillon("sauvegarde");
+            console.log("⏱️ Auto-sauvegarde déclenchée");
+        }
+    }, INTERVALLE_AUTO);
+
+// --- Auto-sauvegarde à chaque modification ---
+// On écoute "input" sur tous les champs du formulaire
+    form.addEventListener("input", function () {
+        // Utiliser un délai (debounce) : attendre 1s après
+        // la dernière frappe avant de sauvegarder
+        // Évite de sauvegarder à chaque lettre tapée
+        clearTimeout(form._debounceTimer);
+        form._debounceTimer = setTimeout(function () {
+            sauvegarderBrouillon(CLE_BROUILLON, lireFormulaire(form));
+            console.log("✏️ Auto-sauvegarde après frappe");
+        }, 1000); // 1 seconde après la dernière frappe
+    });
 
 });
