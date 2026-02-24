@@ -273,4 +273,41 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 1000); // 1 seconde après la dernière frappe
     });
 
+    // =====================================================
+    // PHASE JS-6 : Confirmation avant Annuler
+    // =====================================================
+
+    const btnAnnuler = document.getElementById("btn-annuler");
+
+    if (btnAnnuler) {
+        btnAnnuler.addEventListener("click", function (evenement) {
+
+            // Vérifier si un brouillon existe
+            const brouillon = lireBrouillon(CLE_BROUILLON);
+
+            if (brouillon) {
+                // Empêcher la navigation immédiate
+                evenement.preventDefault();
+
+                /*
+                * window.confirm() : boîte de dialogue native du navigateur
+                * Retourne true si l'utilisateur clique "OK"
+                * Retourne false si l'utilisateur clique "Annuler"
+                *
+                */
+                const confirme = window.confirm(
+                    "Vous avez un brouillon non soumis.\n\n" +
+                    "Voulez-vous vraiment quitter sans enregistree ?"
+                );
+
+                if (confirme) {
+                    // L'utilisateur accepte de perdre le brouillon
+                    effacerBrouillon(CLE_BROUILLON);
+                    window.location.href = "../../index.html";
+                }
+                // Sinon : on reste sur la page, rien ne se passe
+            }
+            // Si pas de brouillon -> navigation normale vers index.html
+        });
+    }
 });
