@@ -8,6 +8,11 @@
  */
 
 // ─────────────────────────────────────────────
+// Constante partagée (point 4)
+// ─────────────────────────────────────────────
+const URL_LISTE = "../../index.html";
+
+// ─────────────────────────────────────────────
 // 1. Récupère le message d'erreur personnalisé
 // ─────────────────────────────────────────────
 function getMessageErreur(champ, messagesErreur) {
@@ -81,7 +86,7 @@ function brancherValidation(messagesErreur) {
 }
 
 // ─────────────────────────────────────────────
-// 4. Met à jour le badge brouillon dans le header
+// 4. Badge brouillon dans le header
 // ─────────────────────────────────────────────
 function mettreAJourBadgeBrouillon(statut) {
     const badge = document.querySelector("[data-badge-brouillon]");
@@ -130,7 +135,41 @@ function brancherAutoSauvegarde(form, CLE_BROUILLON) {
 }
 
 // ─────────────────────────────────────────────
-// 6. Bouton Annuler avec confirmation si brouillon
+// 6. Bouton brouillon manuel
+// ─────────────────────────────────────────────
+function brancherBoutonBrouillon(btnId, form, CLE_BROUILLON) {
+    const btn = document.getElementById(btnId);
+    if (!btn) return;
+
+    btn.addEventListener("click", function (){
+        sauvegarderBrouillon(CLE_BROUILLON, lireFormulaire(form));
+        afficherConfirmationBrouillon(btn);
+    });
+}
+
+// ─────────────────────────────────────────────
+// 7. Restauration brouillon + état visuel
+// ─────────────────────────────────────────────
+function restaurerAvecEtatVisuel(form, messagesErreur, CLE_BROUILLON) {
+    const brouillonSauvegarde = lireBrouillon(CLE_BROUILLON);
+    if (!brouillonSauvegarde) return;
+
+    restaurerFormulaire(form, brouillonSauvegarde);
+
+    Object.keys(messagesErreur).forEach(function (id) {
+        const champ = document.getElementById(id);
+        if (!champ) return;
+        if (champ.value.trim() !== "") {
+            afficherErreur(champ, messagesErreur);
+        }
+    });
+
+    const heure = brouillonSauvegarde._sauvegardeLe || "heure inconnue";
+    afficherBanniereBrouillon(form, heure);
+}
+
+// ─────────────────────────────────────────────
+// 8. Bouton Annuler avec confirmation
 // ─────────────────────────────────────────────
 function brancherBoutonAnnuler(btnId, CLE_BROUILLON) {
     const btn = document.getElementById(btnId);
@@ -149,8 +188,39 @@ function brancherBoutonAnnuler(btnId, CLE_BROUILLON) {
 
             if (confirme) {
                 effacerBrouillon(CLE_BROUILLON);
-                window.location.href = "../../index.html";
+                window.location.href = URL_LISTE;
             }
         }
+    });
+}
+// ─────────────────────────────────────────────
+// 9. Soumission avec validation groupée
+// ─────────────────────────────────────────────
+function brancherSoumission(form, messagesErreur, CLE_BROUILLON) {
+    form.addEventListener("submit", function (evenement) {
+        evenement.preventDefault();
+
+        let formulaireValide = true;
+        let premierChampInvalide = null;
+
+        Object.keys(messagesErreur).forEach(function (id) {
+            const champ = document.getElementById(id);
+            if (!champ) return;
+
+            afficherErreur(champ, messagesErreur);
+
+            if (!champ.validity.valid) {
+                formulaireValide = false;
+                if (!premierChampInvalide) premierChampInvalide = champ;
+            }
+        });
+
+        if (!formulaireValide) {
+            if (premierChampInvalide) premierChampInvalide.focus();
+            return;
+        }
+
+        effacerBrouillon(CLE_BROUILLON);
+        window.location.href = URL_LISTE;
     });
 }
