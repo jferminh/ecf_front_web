@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Nouveau Client - ECF Front-End</title>
+    <meta name="description" content="Formulaire de création d'un nouveau client.">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="../../../src/css/main.css">
+    <!--    <link rel="stylesheet" href="../../../src/css/main.css">-->
     <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../../src/css/main.css">
-    <meta name="description" content="Formulaire de création d'un nouveau client.">
 </head>
 <body class="bg-light">
 <!-- HEADER FORMULAIRE -->
@@ -182,20 +182,44 @@
                     <label for="rue" class="form-label">
                         Rue <span class="text-danger" aria-hidden="true">*</span>
                     </label>
-                    <input
-                            type="text"
-                            id="rue"
-                            name="rue"
-                            class="form-control"
-                            placeholder="Ex : 15 rue de la Paix"
-                            required
-                            autocomplete="street-address"
-                            aria-required="true"
-                            aria-describedby="rue-erreur"
-                    >
-                    <div id="rue-erreur" class="invalid-feedback" role="alert">
-                        La rue est obligatoire.
+
+                    <div class="input-group">
+                        <input
+                                type="text"
+                                id="rue"
+                                name="rue"
+                                class="form-control"
+                                placeholder="Ex : 15 rue de la Paix"
+                                required
+                                minlength="2"
+                                autocomplete="street-address"
+                                aria-required="true"
+                                aria-describedby="rue-erreur"
+                        />
+                        <button
+                                type="button"
+                                class="btn btn-outline-secondary"
+                                id="btn-geo"
+                                title="Rechercher l'adresse"
+                                aria-label="Rechercher et auto-compléter l'adresse"
+                        >
+                            📍
+                        </button>
                     </div>
+
+                    <!-- Suggestions API adresse.gouv.fr -->
+                    <ul
+                            id="suggestion-adresse"
+                            class="list-group position-absolute z-3 w-100 d-none"
+                            role="listbox"
+                            aria-label="Suggestion d'adresse"
+                    >
+                    </ul>
+
+                    <div id="rue-erreur" class="invalid-feedback" role="alert" hidden>
+<!--                        La rue est obligatoire.-->
+                    </div>
+
                 </div>
 
                 <!-- Code postal + Ville sur la même ligne -->
@@ -300,6 +324,7 @@
 <!-- Ordre obligatoire : utilitaires → métier -->
 <script src="../../js/brouillon.js"></script>
 <script src="../../js/utils-form.js"></script>
+<script src="../../js/geo-adresse.js"></script>
 <script src="../../js/form-client.js"></script>
 
 </body>

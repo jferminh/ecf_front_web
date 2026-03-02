@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="../../../src/css/main.css">
     <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../../src/css/main.css">
+
+    <!--    <link rel="stylesheet" href="../../../src/css/main.css">-->
 </head>
 <body class="bg-light">
 <!-- HEADER FORMULAIRE -->
@@ -169,7 +170,6 @@
             </div>
         </section>
 
-
         <!-- ======= SECTION 3 : ADRESSE POSTALE ======= -->
         <section aria-labelledby="titre-adresse" class="card mb-4">
             <div class="card-body">
@@ -180,18 +180,34 @@
                     <label for="rue-p" class="form-label">
                         Rue <span class="text-danger" aria-hidden="true">*</span>
                     </label>
-                    <input
-                            type="text"
-                            id="rue-p"
-                            name="rue"
-                            class="form-control"
-                            placeholder="Ex : 15 rue de la Paix"
-                            required
-                            autocomplete="street-address"
-                            aria-required="true"
-                            aria-describedby="rue-erreur"
-                    >
-                    <div id="rue-p-erreur" class="invalid-feedback" role="alert">
+                    <div class="input-group">
+                        <input
+                                type="text"
+                                id="rue-p"
+                                name="rue-p"
+                                class="form-control"
+                                placeholder="Ex : 15 rue de la Paix"
+                                required
+                                minlength="2"
+                                autocomplete="street-address"
+                                aria-required="true"
+                                aria-describedby="rue-erreur"
+                        />
+                        <button
+                                type="button"
+                                class="btn btn-secondary"
+                                id="btn-geo-p"
+                                title="Rechercher l'adresse"
+                                aria-label="Rechercher et auto-compléter l'adresse"
+                        >📍</button>
+                    </div>
+                    <ul
+                        id="suggestion-adresse-p"
+                        class="list-group position-absolute z-3 w-100 d-none"
+                        role="listbox"
+                        aria-label="Suggestion d'adresse"
+                    ></ul>
+                    <div id="rue-p-erreur" class="invalid-feedback" role="alert" hidden>
                         La rue est obligatoire.
                     </div>
                 </div>
@@ -199,7 +215,7 @@
                 <!-- Code postal + Ville sur la même ligne -->
                 <div class="row g-3 mb-3">
                     <div class="col-12 col-sm-4">
-                        <label for="code-postal" class="form-label">
+                        <label for="code-postal-p" class="form-label">
                             Code postal <span class="text-danger" aria-hidden="true">*</span>
                         </label>
                         <input
@@ -298,6 +314,7 @@
 <!-- Ordre obligatoire : utilitaires → métier -->
 <script src="../../js/brouillon.js"></script>
 <script src="../../js/utils-form.js"></script>
+<script src="../../js/geo-adresse.js"></script>
 <script src="../../js/form-prospect.js"></script>
 
 </body>
