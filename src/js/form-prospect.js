@@ -47,4 +47,14 @@ document.addEventListener("DOMContentLoaded", function () {
     brancherBoutonAnnuler("btn-annuler-p", CLE_BROUILLON);
     restaurerAvecEtatVisuel(form, messagesErreur, CLE_BROUILLON);
     brancherSoumission(form, messagesErreur, CLE_BROUILLON);
+
+    // ── GEO : Auto-complétion adresse ──────
+    brancherGeoAdresse({
+        idRue:         "rue-p",
+        idCp:          "code-postal-p",
+        idVille:       "ville-p",
+        idBtnGeo:      "btn-geo-p",
+        idSuggestions: "suggestion-adresse-p",
+        messagesErreur: messagesErreur,
+    });
 });
