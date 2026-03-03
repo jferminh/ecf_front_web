@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <title>Détail Prospect - ECF Front-End</title>
     <meta name="description" content="Fiche détaillée d'un prospect avec localisation et météo.">
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="../../css/main.css">
-
+    <link rel="stylesheet" href="../../../node_modules/leaflet/dist/leaflet.css">
 </head>
 
 <body class="bg-light">
@@ -118,46 +116,8 @@
         </div>
     </section>
 
-    <!-- ======= SECTION 2 : CARTE ======= -->
-    <section aria-labelledby="titre-carte" class="card mb-4">
-        <div class="card-body">
-            <h2 class="card-title h5 mb-3" id="titre-carte">
-                Localisation du client
-            </h2>
-
-            <div
-                    id="carte-client"
-                    style="height: 400px; border-radius: 0.5rem;"
-                    role="application"
-                    aria-label="Carte de localisation du client ACME Corporation à Paris"
-                    tabindex="0"
-            >
-                <noscript>
-                    <p class="text-muted p-3">
-                        La carte interactive nécessite JavaScript.
-                        Adresse : 15 rue de la Paix, 75002 Paris.
-                    </p>
-                </noscript>
-            </div>
-
-            <!-- Coordonnées GPS (mises à jour par JS) -->
-            <p class="small text-muted mt-2 mb-0">
-                <span aria-hidden="true">📍</span>Coordonnées GPS :
-                <span id="valeur-coords">Non calculées</span>
-            </p>
-        </div>
-    </section>
-
-    <!-- ================================================
-     SECTION MÉTÉO (METEO-1)
-     Affiche la météo actuelle de la ville du client
-     ================================================ -->
-    <section
-            class="card mt-4"
-            id="section-meteo"
-            aria-labelledby="titre-meteo"
-            aria-live="polite"
-    >
+    <!-- ======= SECTION 2 : METEO ======= -->
+    <section class="card mt-4" id="section-meteo" aria-labelledby="titre-meteo" aria-live="polite">
         <div class="card-header d-flex align-items-center gap-2">
             <span aria-hidden="true">🌤️</span>
             <h2 class="h5 mb-0" id="titre-meteo">
@@ -218,6 +178,54 @@
                 <p class="text-end text-secondary small mt-3 mb-0">
                     Mise à jour : <span id="meteo-maj">–</span>
                 </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ======= SECTION 3 : CARTE ======= -->
+    <section class="card mt-4" id="section-carte" aria-labelledby="titre-carte">
+        <div class="card-header d-flex align-items-center gap-2">
+            <span aria-hidden="true">🗺️</span>
+            <h2 class="h5 mb-0" id="titre-carte">
+                Localisation – <span id="carte-adresse">chargement…</span>
+            </h2>
+        </div>
+
+        <div class="card-body p-0">
+
+            <!-- État : chargement -->
+            <div
+                    id="carte-chargement"
+                    class="text-center text-secondary py-3"
+            >
+                <div class="spinner-border spinner-border-sm me-2" role="status">
+                    <span class="visually-hidden">Chargement de la carte…</span>
+                </div>
+                Récupération de la position…
+            </div>
+
+            <!-- État : erreur -->
+            <div
+                    id="carte-erreur"
+                    class="alert alert-warning m-3 d-none"
+                    role="alert"
+            >
+                ⚠️ Impossible de localiser cette adresse sur la carte.
+            </div>
+
+            <!-- État : carte affichée -->
+            <!--
+              height obligatoire : Leaflet a besoin d'une hauteur
+              explicite pour calculer et afficher les tuiles
+            -->
+            <div
+                    id="carte-leaflet"
+                    style="height: 350px;"
+                    role="application"
+                    aria-label="Carte de localisation"
+                    class="d-none"
+            >
             </div>
 
         </div>
@@ -321,8 +329,10 @@
 
 <!-- Bootstrap JS local -->
 <script src="../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../../node_modules/leaflet/dist/leaflet.js"></script>
 <script src="../../js/brouillon.js"></script>
 <script src="../../js/meteo.js"></script>
+<script src="../../js/carte.js"></script>
 <script src="../../js/detail.js"></script>
 
 </body>

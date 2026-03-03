@@ -22,7 +22,8 @@
   },
   "homepage": "https://github.com/jferminh/ecf_front_web#readme",
   "dependencies": {
-    "bootstrap": "^5.3.3"
+    "bootstrap": "^5.3.3",
+    "leaflet": "^1.9.4"
   },
   "devDependencies": {
     "sass": "^1.97.3"
