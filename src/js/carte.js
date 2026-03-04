@@ -105,7 +105,138 @@ function construireAdresse(donnees, estClient) {
     const ville = estClient ? donnees["ville"] : donnees["ville-p"];
 
     // Filtrer les valeurs vides avant de joindre
+    // évite des espaces parasites dans la requête API si un champ est manquant
     return [rue, cp, ville]
         .filter(val => val && val.trim() !== "")
         .join(" ");
+}
+
+// ─────────────────────────────────────────────
+// Instance Leaflet (variable module)
+// ─────────────────────────────────────────────
+
+/*
+ * On stocke l'instance de la carte dans une variable
+ * pour pouvoir la détruire si besoin (évite les doublons
+ * si lancerCarte() est appelée plusieurs fois)
+ */
+let carteLeaflet = null;
+
+// ─────────────────────────────────────────────
+// Initialisation de la carte Leaflet
+// ─────────────────────────────────────────────
+
+/**
+ * Crée la carte Leaflet, ajoute les tuiles OSM et le marqueur
+ *
+ * @param {number} lat    - Latitude
+ * @param {number} lon    - Longitude
+ * @param {string} label  - Adresse formatée pour la popup
+ * @param {string} nom    - Nom du client/prospect pour la popup
+ */
+function initialiserCarte(lat, lon, label, nom) {
+
+    // Détruire la carte existante si on en recrée une
+    if (carteLeaflet) {
+        carteLeaflet.remove();
+        carteLeaflet = null;
+    }
+
+    /*
+     * Afficher le conteneur AVANT d'initialiser Leaflet
+     * Leaflet a besoin que le div soit visible pour
+     * calculer ses dimensions
+     */
+    afficherEtatCarteDonnees();
+
+    // ── Initialiser la carte ──────────────────
+    carteLeaflet = L.map("carte-leaflet").setView([lat, lon], 15);
+
+    /*
+     * Couche de tuiles OpenStreetMap
+     * attribution obligatoire (licence ODbL)
+     */
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        maxZoom: 19,
+    }).addTo(carteLeaflet);
+
+    // ── Marqueur + popup ──────────────────────
+    const marqueur = L.marker([lat, lon]).addTo(carteLeaflet);
+
+    /*
+     * Contenu HTML de la popup
+     * label = adresse formatée par l'API (ex: "10 Rue de la Paix 75002 Paris")
+     * nom   = raison sociale du client/prospect
+     */
+    marqueur.bindPopup(`
+        <div style="min-width: 150px;">
+            <strong>${nom}</strong><br>
+            <span class="text-muted">${label}</span>
+        </div>
+    `).openPopup();
+
+    /*
+     * Forcer le recalcul de la taille de la carte
+     * Nécessaire quand le conteneur était masqué (d-none)
+     * au moment de l'initialisation
+     */
+    setTimeout(function () {
+        carteLeaflet.invalidateSize();
+    }, 100);
+}
+
+// ─────────────────────────────────────────────
+// Fonction principale d'orchestration
+// ─────────────────────────────────────────────
+
+/**
+ * Point d'entrée : chaîne complète géocodage → carte
+ *
+ * @param {Object}  donnees   - Données brouillon LocalStorage
+ * @param {boolean} estClient - true = client, false = prospect
+ */
+async function lancerCarte(donnees, estClient) {
+
+    // 1. Afficher le spinner
+    afficherEtatCartChargement();
+
+    // 2. Construire l'adresse complète
+    const adresse = construireAdresse(donnees, estClient);
+
+    if (!adresse || adresse.trim() === "") {
+        afficherEtatCarteErreur();
+        return;
+    }
+
+    // Afficher l'adresse dans le titre de la section
+    const titreAdresse = document.getElementById("carte-adresse");
+    if (titreAdresse) titreAdresse.textContent = adresse;
+
+    // 3. Géocoder l'adresse
+    const coords = await geocoderAdresse(adresse);
+
+    if (!coords) {
+        afficherEtatCarteErreur();
+        return;
+    }
+
+    /*
+     * Vérifier la pertinence du résultat
+     * Un score < 0.3 signifie que l'API n'a pas trouvé
+     * une adresse correspondante fiable
+     */
+    if (coords.score < 0.3) {
+        console.warn("Score géocodage trop faible :", coords.score);
+        afficherEtatCarteErreur();
+        return;
+    }
+
+    // 4. Récupérer le nom (raison sociale)
+    const nom = estClient
+        ? (donnees["raison-sociale"]   || "Client")
+        : (donnees["raison-sociale-p"] || "Prospect");
+
+    // 5. Initialiser la carte
+    initialiserCarte(coords.lat, coords.lon, coords.label, nom);
 }

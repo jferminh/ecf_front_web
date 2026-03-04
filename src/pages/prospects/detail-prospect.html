@@ -35,14 +35,14 @@
             <a
                     href="form.html"
                     class="btn btn-outline-secondary btn-sm"
-                    aria-label="Modifier le client ACME Corporation"
+                    aria-label="Modifier le prospect Green Corp"
             >
                 ⚙️ Modifier
             </a>
             <button
                     class="btn btn-outline-danger btn-sm"
                     type="button"
-                    aria-label="Supprimer le client ACME Corporation"
+                    aria-label="Supprimer le prospect Green Corp"
                     data-bs-toggle="modal"
                     data-bs-target="#modal-suppression"
             >
@@ -54,7 +54,7 @@
 </header>
 
 <!-- Contenu principal -->
-<main class="container my-4" role="main">
+<main class="container my-4" role="main" id="detail-prospect">
 
     <!-- ======= SECTION 1 : FICHE SYNTHÉTIQUE ======= -->
     <section aria-labelledby="titre-fiche" class="card mb-4">
@@ -117,7 +117,7 @@
     </section>
 
     <!-- ======= SECTION 2 : METEO ======= -->
-    <section class="card mt-4" id="section-meteo" aria-labelledby="titre-meteo" aria-live="polite">
+    <section class="card mb-4" id="section-meteo" aria-labelledby="titre-meteo" aria-live="polite">
         <div class="card-header d-flex align-items-center gap-2">
             <span aria-hidden="true">🌤️</span>
             <h2 class="h5 mb-0" id="titre-meteo">
@@ -184,7 +184,7 @@
     </section>
 
     <!-- ======= SECTION 3 : CARTE ======= -->
-    <section class="card mt-4" id="section-carte" aria-labelledby="titre-carte">
+    <section class="card mb-4" id="section-carte" aria-labelledby="titre-carte">
         <div class="card-header d-flex align-items-center gap-2">
             <span aria-hidden="true">🗺️</span>
             <h2 class="h5 mb-0" id="titre-carte">

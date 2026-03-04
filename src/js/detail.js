@@ -1,8 +1,10 @@
 /**
- * detail.js
+ * * detail.js
  * Logique des pages détail client et prospect
  * - Lit les données depuis LocalStorage
  * - Lance l'affichage météo
+ * - Lance l'affichage de la carte Leaflet
+ *
  */
 
 document.addEventListener("DOMContentLoaded", async function () {
@@ -21,6 +23,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (!estClient && !estProspect) return;
 
     const CLE_BROUILLON = estClient ? "brouillon-client" : "brouillon-prospect";
+    // const ID_VILLE= "ville";
     const ID_VILLE      = estClient ? "ville"            : "ville-p";
 
     // ─────────────────────────────────────────
@@ -46,22 +49,31 @@ document.addEventListener("DOMContentLoaded", async function () {
     remplirFicheDetail(donnees, estClient);
 
     // ─────────────────────────────────────────
-    // Lancer la météo
+    // Lancer la météo et la carte en parallèle
     // ─────────────────────────────────────────
 
     /*
-     * On lit la ville depuis les données brouillon
-     * ID_VILLE = "ville" (client) ou "ville-p" (prospect)
+     * Promise.all() lance les deux appels simultanément
+     * au lieu de les enchaîner l'un après l'autre :
+     *
+     * Sans Promise.all :  météo (1s) + carte (1s) = 2s d'attente
+     * Avec Promise.all :  météo (1s)
+     *                     carte (1s)  ← en même temps
+     *                     = 1s d'attente au total
      */
     const ville = donnees[ID_VILLE];
 
-    if (ville && ville.trim() !== "") {
-        await lancerMeteo(ville);
-    } else {
-        // Pas de ville renseignée → masquer la section météo
-        const sectionMeteo = document.getElementById("section-meteo");
-        if (sectionMeteo) sectionMeteo.classList.add("d-none");
-    }
+    await Promise.all([
+
+        // Météo
+        ville && ville.trim() !== ""
+            ? lancerMeteo(ville)
+            : masquerSection("section-meteo"),
+
+        // Carte
+        lancerCarte(donnees, estClient),
+
+    ]);
 });
 
 // ─────────────────────────────────────────────
@@ -69,19 +81,20 @@ document.addEventListener("DOMContentLoaded", async function () {
 // ─────────────────────────────────────────────
 
 function remplirFicheDetail(donnees, estClient) {
-    /*
-     * Les IDs des spans de la fiche détail suivent la convention :
-     * detail-<nom-du-champ>
-     * Ex : <span id="detail-raison-sociale">
-     *      <span id="detail-email-client">
-     */
     Object.entries(donnees).forEach(function ([cle, valeur]) {
-        // Ignorer la clé interne _sauvegardeLe
         if (cle.startsWith("_")) return;
 
         const element = document.getElementById("detail-" + cle);
         if (element) element.textContent = valeur || "–";
     });
+}
+
+// ─────────────────────────────────────────────
+// Masquer une section si données manquantes
+// ─────────────────────────────────────────────
+function masquerSection(id) {
+    const section = document.getElementById(id);
+    if (section) section.classList.add("d-none");
 }
 
 // ─────────────────────────────────────────────
