@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mentions légales — SwingApp CRM</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../src/css/main.css" />
+</head>
+<body>
+
+<!-- RGPD-2 : Bandeau consentement (présent sur toutes les pages) -->
+<div id="rgpd-banner"
+     class="position-fixed bottom-0 start-0 end-0 z-3 bg-dark text-white p-3 shadow-lg"
+     role="dialog" aria-modal="true" aria-label="Bandeau de consentement"
+     hidden>
+    <div class="container d-flex flex-wrap align-items-center justify-content-between gap-3">
+        <p class="mb-0 small">
+            <strong>SwingApp CRM</strong> utilise le <strong>LocalStorage</strong>
+            pour mémoriser temporairement vos saisies (brouillons de formulaires).
+            Ces données restent sur votre appareil et sont supprimées automatiquement
+            après <strong>30 jours sans activité</strong>.
+        </p>
+        <div class="d-flex gap-2 flex-shrink-0">
+            <button type="button" id="btn-rgpd-refuser"
+                    class="btn btn-outline-light btn-sm">Refuser</button>
+            <button type="button" id="btn-rgpd-accepter"
+                    class="btn btn-success btn-sm">Accepter</button>
+        </div>
+    </div>
+</div>
+
+<!-- HEADER -->
+<header class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="../src/index.html">SwingApp CRM</a>
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navMenu"
+                aria-controls="navMenu" aria-expanded="false"
+                aria-label="Basculer la navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../src/index.html">Accueil</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<!-- CONTENU PRINCIPAL -->
+<main class="container my-5" id="main-content">
+
+    <!-- Fil d'Ariane -->
+    <nav aria-label="Fil d'Ariane" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="../src/index.html">Accueil</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Mentions légales</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-4">Mentions légales &amp; Politique de confidentialité</h1>
+    <p class="text-muted small">Dernière mise à jour : mars 2026</p>
+    <hr />
+
+    <!-- 1. Responsable de traitement -->
+    <section aria-labelledby="titre-responsable" class="mb-5">
+        <h2 id="titre-responsable" class="h4 fw-bold">1. Responsable de traitement</h2>
+        <p>
+            Le responsable de traitement des données collectées via cette application est :
+        </p>
+        <ul>
+            <li><strong>Nom :</strong> SwingApp CRM</li>
+            <li><strong>Auteur :</strong> Jferminh — Formation CDA AFPA</li>
+            <li><strong>Contact :</strong>
+                <a href="mailto:contact@swingapp.local">contact@swingapp.local</a>
+            </li>
+            <li><strong>Nature :</strong> Application de démonstration — ECF Front-end Web, mars 2026</li>
+        </ul>
+    </section>
+
+    <!-- 2. Données collectées et finalités -->
+    <section aria-labelledby="titre-finalites" class="mb-5">
+        <h2 id="titre-finalites" class="h4 fw-bold">
+            2. Données collectées — Finalités &amp; bases légales (Art. 6 RGPD)
+        </h2>
+        <div class="table-responsive">
+            <table class="table table-bordered table-sm">
+                <thead class="table-light">
+                <tr>
+                    <th scope="col">Donnée</th>
+                    <th scope="col">Finalité</th>
+                    <th scope="col">Base légale</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Raison sociale, email, téléphone</td>
+                    <td>Gestion de la relation commerciale clients / prospects</td>
+                    <td>Intérêt légitime — Art. 6.1.f RGPD</td>
+                </tr>
+                <tr>
+                    <td>Adresse, code postal, ville</td>
+                    <td>Géolocalisation, affichage carte et météo</td>
+                    <td>Intérêt légitime — Art. 6.1.f RGPD</td>
+                </tr>
+                <tr>
+                    <td>CA annuel, nombre d'employés</td>
+                    <td>Qualification commerciale du client</td>
+                    <td>Intérêt légitime — Art. 6.1.f RGPD</td>
+                </tr>
+                <tr>
+                    <td>Brouillons de formulaires (LocalStorage)</td>
+                    <td>Mémorisation temporaire des saisies en cours</td>
+                    <td>Consentement — Art. 6.1.a RGPD</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="small text-muted mt-2">
+            Aucune donnée n'est transmise à des serveurs tiers. Toutes les données
+            restent sur votre appareil (LocalStorage du navigateur).
+        </p>
+    </section>
+
+    <!-- 3. Durée de conservation -->
+    <section aria-labelledby="titre-duree" class="mb-5">
+        <h2 id="titre-duree" class="h4 fw-bold">3. Durée de conservation</h2>
+        <ul>
+            <li>
+                <strong>Brouillons (LocalStorage) :</strong> supprimés automatiquement
+                après <strong>30 jours sans activité</strong>, ou immédiatement à la
+                soumission du formulaire.
+            </li>
+            <li>
+                <strong>Consentement RGPD :</strong> mémorisé pendant <strong>30 jours</strong>.
+                Au-delà, le bandeau se réaffiche et votre choix est effacé.
+            </li>
+        </ul>
+    </section>
+
+    <!-- 4. Droits des personnes -->
+    <section aria-labelledby="titre-droits" class="mb-5">
+        <h2 id="titre-droits" class="h4 fw-bold">
+            4. Vos droits (Art. 15 à 22 RGPD)
+        </h2>
+        <p>Conformément au RGPD, vous disposez des droits suivants :</p>
+        <ul>
+            <li>
+                <strong>Droit d'accès (Art. 15) :</strong> consulter les données vous
+                concernant stockées dans le navigateur via
+                <em>DevTools → Application → LocalStorage</em>.
+            </li>
+            <li>
+                <strong>Droit de rectification (Art. 16) :</strong> modifier vos données
+                en rouvrant le formulaire correspondant.
+            </li>
+            <li>
+                <strong>Droit de suppression / effacement (Art. 17) :</strong> utiliser
+                le bouton <em>Annuler</em> sur les formulaires, ou vider le LocalStorage
+                via <em>DevTools → Application → Clear site data</em>.
+            </li>
+            <li>
+                <strong>Droit d'opposition (Art. 21) :</strong> cliquer sur
+                <em>Refuser</em> dans le bandeau de consentement pour désactiver
+                la mémorisation des brouillons.
+            </li>
+        </ul>
+        <p>
+            Pour exercer vos droits, contactez :
+            <a href="mailto:contact@swingapp.local">contact@swingapp.local</a>
+        </p>
+    </section>
+
+    <!-- 5. Cookies et stockage local -->
+    <section aria-labelledby="titre-stockage" class="mb-5">
+        <h2 id="titre-stockage" class="h4 fw-bold">5. Cookies &amp; stockage local</h2>
+        <p>
+            Cette application n'utilise <strong>aucun cookie</strong>.
+            Elle utilise uniquement le <strong>LocalStorage</strong> du navigateur,
+            un stockage local qui ne quitte jamais votre appareil et n'est
+            accessible à aucun tiers.
+        </p>
+        <ul>
+            <li><code>rgpd-consent</code> — votre choix de consentement (valeur + date)</li>
+            <li><code>brouillon-client</code> — saisies en cours formulaire client</li>
+            <li><code>brouillon-prospect</code> — saisies en cours formulaire prospect</li>
+        </ul>
+    </section>
+
+    <!-- 6. Transferts hors UE -->
+    <section aria-labelledby="titre-transfert" class="mb-5">
+        <h2 id="titre-transfert" class="h4 fw-bold">6. Transferts hors Union Européenne</h2>
+        <p>
+            Aucune donnée personnelle n'est transférée en dehors de l'Union Européenne.
+            Les APIs externes utilisées (adresse.data.gouv.fr, Open-Meteo, OpenStreetMap)
+            ne reçoivent <strong>pas de données personnelles</strong> — uniquement
+            des adresses postales à des fins de géocodage.
+        </p>
+    </section>
+
+    <!-- Retour -->
+    <div class="mt-4">
+        <a href="../src/index.html" class="btn btn-outline-secondary">
+            &larr; Retour à l'accueil
+        </a>
+    </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-light text-center text-muted py-3 mt-5 border-top small">
+    &copy; 2026 SwingApp CRM — ECF Front-end Web AFPA
+    &nbsp;|&nbsp;
+    <a href="../src/mentions-legales.html" class="text-muted">Mentions légales</a>
+</footer>
+
+<script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../src/js/rgpd-consent.js"></script>
+</body>
+</html>
