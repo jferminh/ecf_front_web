@@ -47,6 +47,10 @@ document.addEventListener("DOMContentLoaded", function () {
         "ville": {
             valueMissing: "La ville est obligatoire.",
         },
+        // ── RGPD-1 : consentement obligatoire ──
+        "consentement-client": {
+            valueMissing: "Vous devez accepter pour continuer.",
+        },
     };
 
     // ─────────────────────────────────────────

@@ -36,6 +36,9 @@ document.addEventListener("DOMContentLoaded", function () {
         "ville-p": {
             valueMissing: "La ville est obligatoire.",
         },
+        "consentement-prospect": {
+            valueMissing: "Vous devez accepter pour continuer.",
+        },
     };
 
     // ─────────────────────────────────────────

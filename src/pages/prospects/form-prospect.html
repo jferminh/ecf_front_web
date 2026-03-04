@@ -258,40 +258,104 @@
             </div>
         </section>
 
-        <!-- ======= BARRE D'ACTIONS ======= -->
-        <div class="d-flex flex-column flex-sm-row justify-content-between gap-2 mt-2 mb-5">
+        <!-- ================================================
+         RGPD-1 : Mention d'information (Art. 13 RGPD)
+         HORS de la barre d'actions
+         ================================================ -->
+        <div
+                class="alert alert-light border mt-4"
+                role="note"
+                aria-label="Informations sur la collecte de données personnelles"
+        >
+            <h2 class="h6 fw-bold mb-2">
+                🔒 Informations sur vos données personnelles
+            </h2>
 
-            <!-- Annuler -->
+            <p class="mb-2 small">
+                Les données collectées dans ce formulaire sont destinées à la gestion
+                de votre relation commerciale. Elles sont traitées par
+                <strong>AFPA</strong>, responsable de traitement.
+            </p>
+
+            <ul class="small mb-2">
+                <li><strong>Finalité :</strong> gestion des clients et prospects</li>
+                <li><strong>Base légale :</strong> intérêt légitime (Art. 6.1.f RGPD)</li>
+                <li>
+                    <strong>Durée de conservation :</strong> données supprimées
+                    automatiquement après 30 jours sans activité
+                </li>
+                <li>
+                    <strong>Destinataires :</strong> usage interne uniquement,
+                    aucune transmission à des tiers
+                </li>
+            </ul>
+
+            <p class="small mb-0">
+                Conformément au RGPD, vous disposez d'un droit d'accès, de rectification
+                et de suppression de vos données.
+                <a href="../../mentions-legales.html" class="alert-link">
+                    En savoir plus
+                </a>
+            </p>
+        </div>
+
+        <!-- Consentement explicite -->
+        <div class="form-check mt-2 mb-4">
+            <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="consentement-prospect"
+                    name="consentement"
+                    required
+                    aria-describedby="consentement-prospect-erreur"
+            />
+            <label class="form-check-label" for="consentement-prospect">
+                J'ai lu et j'accepte que mes données soient traitées conformément
+                à la politique de confidentialité.
+                <span aria-hidden="true"> *</span>
+            </label>
+            <div
+                    id="consentement-prospect-erreur"
+                    class="invalid-feedback"
+                    hidden
+            >
+                Vous devez accepter pour continuer.
+            </div>
+        </div>
+
+        <!-- ======= BARRE D'ACTIONS ======= -->
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mt-2 mb-5 pt-3 border-top">
+
+            <!-- Groupe gauche : action secondaire -->
             <a
                     href="../../index.html"
                     class="btn btn-outline-secondary"
-                    id="btn-annuler-p"
+                    id="btn-annuler"
             >
                 ❌ Annuler
             </a>
 
-            <div class="d-flex flex-column flex-sm-row gap-2">
-
-                <!-- Enregistrer brouillon -->
+            <!-- Groupe droit : actions principales -->
+            <div class="d-flex flex-wrap gap-2">
                 <button
                         type="button"
-                        id="btn-brouillon-p"
+                        id="btn-brouillon"
                         class="btn btn-outline-primary"
                 >
                     💾 Enregistrer brouillon
                 </button>
 
-                <!-- Enregistrer le client -->
                 <button
                         type="submit"
                         id="btn-soumettre"
                         class="btn btn-primary"
                 >
-                    ✅ Enregistrer le prospect
+                    ✅ Enregistrer le client
                 </button>
-
             </div>
+
         </div>
+
     </form>
 </main>
 <!-- Bootstrap JS local -->
