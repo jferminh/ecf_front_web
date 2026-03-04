@@ -13,6 +13,55 @@
 </head>
 <body>
 
+<!-- ================================================
+     RGPD-2 : Bandeau consentement LocalStorage
+     À placer en premier élément après <body>
+     ================================================ -->
+<div
+        id="rgpd-banner"
+        class="position-fixed bottom-0 start-0 end-0 z-3 bg-dark text-white p-3 shadow-lg"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Bandeau de consentement"
+        hidden
+>
+    <div class="container d-flex flex-wrap align-items-center justify-content-between gap-3">
+
+        <!-- Message -->
+        <p class="mb-0 small">
+            🍪 <strong>SwingApp CRM</strong> utilise le <strong>LocalStorage</strong>
+            pour mémoriser temporairement vos saisies (brouillons de formulaires).
+            Ces données restent sur votre appareil et sont supprimées automatiquement
+            après <strong>30 jours sans activité</strong>.
+            <a
+                    href="mentions-legales.html"
+                    class="text-white-50 text-decoration-underline ms-1"
+            >
+                En savoir plus
+            </a>
+        </p>
+
+        <!-- Boutons -->
+        <div class="d-flex gap-2 flex-shrink-0">
+            <button
+                    type="button"
+                    id="btn-rgpd-refuser"
+                    class="btn btn-outline-light btn-sm"
+            >
+                ❌ Refuser
+            </button>
+            <button
+                    type="button"
+                    id="btn-rgpd-accepter"
+                    class="btn btn-success btn-sm"
+            >
+                ✅ Accepter
+            </button>
+        </div>
+
+    </div>
+</div>
+
 <!-- HEADER -->
 <header class="bg-white border-bottom shadow-sm">
     <nav class="container d-flex align-items-center justify-content-between py-3">
@@ -324,10 +373,12 @@
                         <td>Rennes</td>
                         <td class="d-none d-lg-table-cell">Fort</td>
                         <td class="text-end">
-                            <a href="pages/prospects/form-prospect.html" class="btn btn-sm btn-outline-secondary me-1" title="Modifier">
+                            <a href="pages/prospects/form-prospect.html" class="btn btn-sm btn-outline-secondary me-1"
+                               title="Modifier">
                                 ⚙️
                             </a>
-                            <a href="pages/prospects/detail-prospect.html" class="btn btn-sm btn-outline-primary me-1" title="Voir détails">
+                            <a href="pages/prospects/detail-prospect.html" class="btn btn-sm btn-outline-primary me-1"
+                               title="Voir détails">
                                 📍
                             </a>
                             <button type="button" class="btn btn-sm btn-outline-danger" title="Supprimer">
@@ -343,10 +394,12 @@
                         <td>Bordeaux</td>
                         <td class="d-none d-lg-table-cell">Moyen</td>
                         <td class="text-end">
-                            <a href="pages/prospects/form-prospect.html" class="btn btn-sm btn-outline-secondary me-1" title="Modifier">
+                            <a href="pages/prospects/form-prospect.html" class="btn btn-sm btn-outline-secondary me-1"
+                               title="Modifier">
                                 ⚙️
                             </a>
-                            <a href="pages/prospects/detail-prospect.html" class="btn btn-sm btn-outline-primary me-1" title="Voir détails">
+                            <a href="pages/prospects/detail-prospect.html" class="btn btn-sm btn-outline-primary me-1"
+                               title="Voir détails">
                                 📍
                             </a>
                             <button type="button" class="btn btn-sm btn-outline-danger" title="Supprimer">
@@ -362,10 +415,12 @@
                         <td>Marseille</td>
                         <td class="d-none d-lg-table-cell">Faible</td>
                         <td class="text-end">
-                            <a href="pages/prospects/form-prospect.html" class="btn btn-sm btn-outline-secondary me-1" title="Modifier">
+                            <a href="pages/prospects/form-prospect.html" class="btn btn-sm btn-outline-secondary me-1"
+                               title="Modifier">
                                 ⚙️
                             </a>
-                            <a href="pages/prospects/detail-prospect.html" class="btn btn-sm btn-outline-primary me-1" title="Voir détails">
+                            <a href="pages/prospects/detail-prospect.html" class="btn btn-sm btn-outline-primary me-1"
+                               title="Voir détails">
                                 📍
                             </a>
                             <button type="button" class="btn btn-sm btn-outline-danger" title="Supprimer">
