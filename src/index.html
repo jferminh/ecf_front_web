@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <!-- Guard session : redirige vers login.html si non connecté -->
+    <script>
+        (function() {
+            var session = localStorage.getItem('user-session');
+            if (!session) {
+                window.location.replace('login.html');
+            }
+        })();
+    </script>
+
     <meta charset="UTF-8">
     <title>ECF Front End - Page d'accueil</title>
 
@@ -8,8 +18,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../src/css/main.css">
-
-
 </head>
 <body>
 
@@ -76,31 +84,19 @@
             </div>
         </div>
 
-        <div>
-            <button
-                    class="btn btn-outline-primary btn-sm"
-                    type="button"
-                    id="btn-login"
-                    data-bs-toggle="modal"
-                    data-bs-target="#modal-connexion"
-            >
-                🔒 Connexion
-            </button>
-
-        </div>
-
         <!-- Header : connexion/déconnexion -->
         <div class="dropdown ms-2">
-            <button class="btn btn-outline-light dropdown-toggle d-none d-lg-inline-flex"
-                    type="button" id="btn-connexion" data-bs-toggle="dropdown"
+            <button class="btn btn-outline-primary btn-sm"
+                    type="button" id="btn-deconnexion"
                     aria-expanded="false">
-                <span class="me-1">👤</span> Connecté
+                <!--  data-bs-toggle="dropdown" -->
+                <span class="me-1">👤</span> Se déconnecter
             </button>
-            <ul class="dropdown-menu dropdown-menu-end">
-                <li>
-                    <a class="dropdown-item" href="#" id="btn-deconnexion">Se déconnecter</a>
-                </li>
-            </ul>
+<!--            <ul class="dropdown-menu dropdown-menu-end">-->
+<!--                <li>-->
+<!--                    <a class="dropdown-item" href="#" id="btn-connexion">Se déconnecter</a>-->
+<!--                </li>-->
+<!--            </ul>-->
         </div>
     </nav>
 
@@ -490,137 +486,6 @@
     </div>
 </footer>
 
-
-<!-- ======= MODAL CONNEXION ======= -->
-<div
-        class="modal fade"
-        id="modal-connexion"
-        tabindex="-1"
-        aria-labelledby="modal-connexion-titre"
-        aria-modal="true"
-        role="dialog"
->
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h2 class="modal-title h5" id="modal-connexion-titre">
-                    🔒 Connexion
-                </h2>
-                <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Fermer la fenêtre de connexion"
-                ></button>
-            </div>
-
-            <div class="modal-body">
-                <form
-                        id="form-connexion"
-                        novalidate
-                        aria-label="Formulaire de connexion"
-                >
-
-                    <!-- Identifiant -->
-                    <div class="mb-3">
-                        <label for="login-identifiant" class="form-label">
-                            Identifiant
-                            <span class="text-danger" aria-hidden="true">*</span>
-                        </label>
-                        <input
-                                type="text"
-                                id="login-identifiant"
-                                name="identifiant"
-                                class="form-control"
-                                placeholder="Votre identifiant"
-                                required
-                                autocomplete="username"
-                                aria-required="true"
-                                aria-describedby="login-id-erreur"
-                                autofocus
-                        >
-                        <div
-                                id="login-id-erreur"
-                                class="invalid-feedback"
-                                role="alert"
-                        >
-                            L'identifiant est obligatoire.
-                        </div>
-                    </div>
-
-                    <!-- Mot de passe + bouton afficher/masquer -->
-                    <div class="mb-3">
-                        <label for="login-mdp" class="form-label">
-                            Mot de passe
-                            <span class="text-danger" aria-hidden="true">*</span>
-                        </label>
-                        <div class="input-group">
-                            <input
-                                    type="password"
-                                    id="login-mdp"
-                                    name="motDePasse"
-                                    class="form-control"
-                                    placeholder="Votre mot de passe"
-                                    required
-                                    autocomplete="current-password"
-                                    aria-required="true"
-                                    aria-describedby="login-mdp-erreur"
-                            >
-
-                            <button
-                                    type="button"
-                                    class="btn btn-outline-secondary"
-                                    id="btn-toggle-mdp"
-                                    aria-label="Afficher le mot de passe"
-                                    aria-pressed="false"
-                            >
-                                👁️
-                            </button>
-                        </div>
-                        <div
-                                id="login-mdp-erreur"
-                                class="invalid-feedback"
-                                role="alert"
-                        >
-                            Le mot de passe est obligatoire.
-                        </div>
-                    </div>
-
-                    <!-- Se souvenir de moi -->
-                    <div class="mb-3 form-check">
-                        <input
-                                type="checkbox"
-                                id="remember-me"
-                                name="rememberMe"
-                                class="form-check-input"
-                        >
-                        <label for="remember-me" class="form-check-label">
-                            Se souvenir de moi
-                        </label>
-                    </div>
-
-                    <!-- Bouton soumettre (largeur 100% dans la modal) -->
-                    <div class="d-grid mb-3">
-                        <button type="submit" class="btn btn-primary">
-                            Se connecter
-                        </button>
-                    </div>
-
-                    <!-- Lien mot de passe oublié -->
-                    <div class="text-center">
-                        <a href="#" class="link-secondary small">
-                            Mot de passe oublié ?
-                        </a>
-                    </div>
-
-                </form>
-            </div>
-
-        </div>
-    </div>
-</div>
-
 <!-- ======= MODAL SUPPRESSION ======= -->
 <div
         class="modal fade"
@@ -713,7 +578,7 @@
 </div>
 
 <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../src/js/modal-connexion.js"></script>
+<!--<script src="../src/js/modal-connexion.js"></script>-->
 <script src="../src/js/modal-suppression.js"></script>
 <script src="../src/js/modal-deconnexion.js"></script>
 <script src="../src/js/rgpd-consent.js"></script>

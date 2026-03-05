@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+          content="SwingApp CRM — Gestion clients et prospects. Connectez-vous pour accéder à votre tableau de bord." />
+    <title>SwingApp CRM — Connexion</title>
+    <link rel="stylesheet"
+          href="../node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../src/css/main.css" />
+    <style>
+        .hero {
+            background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+            min-height: 100vh;
+        }
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(13,110,253,.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+        .card-feature {
+            border: none;
+            border-radius: 16px;
+            transition: transform .2s;
+        }
+        .card-feature:hover { transform: translateY(-4px); }
+    </style>
+</head>
+<body class="bg-light">
+
+<!-- RGPD-2 : Bandeau consentement -->
+<div id="rgpd-banner"
+     class="position-fixed bottom-0 start-0 end-0 z-3 bg-dark text-white p-3 shadow-lg"
+     role="dialog" aria-modal="true" aria-label="Bandeau de consentement"
+     hidden>
+    <div class="container d-flex flex-wrap align-items-center
+                justify-content-between gap-3">
+        <p class="mb-0 small">
+            <strong>SwingApp CRM</strong> utilise le <strong>LocalStorage</strong>
+            pour mémoriser vos saisies. Données supprimées après
+            <strong>30 jours sans activité</strong>.
+            <a href="../src/mentions-legales.html"
+               class="text-white-50 text-decoration-underline ms-1">En savoir plus</a>
+        </p>
+        <div class="d-flex gap-2 flex-shrink-0">
+            <button type="button" id="btn-rgpd-refuser"
+                    class="btn btn-outline-light btn-sm">Refuser</button>
+            <button type="button" id="btn-rgpd-accepter"
+                    class="btn btn-success btn-sm">Accepter</button>
+        </div>
+    </div>
+</div>
+
+<!-- ========== HERO ========== -->
+<main>
+    <section class="hero text-white" aria-labelledby="titre-hero">
+        <div class="container py-5">
+            <div class="row align-items-center min-vh-100 py-4">
+
+                <!-- Colonne gauche : branding + features -->
+                <div class="col-lg-6 mb-5 mb-lg-0">
+
+                    <!-- Logo / Marque -->
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <div class="bg-white rounded-3 p-2" style="width:52px;height:52px;">
+                            <svg viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg" width="36" height="36">
+                                <rect width="24" height="24" rx="6" fill="#0d6efd"/>
+                                <path d="M7 17l4-4 3 3 4-5" stroke="white"
+                                      stroke-width="2" stroke-linecap="round"
+                                      stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h1 class="h4 fw-bold mb-0" id="titre-hero">SwingApp CRM</h1>
+                            <p class="mb-0 opacity-75 small">Gestion clients &amp; prospects</p>
+                        </div>
+                    </div>
+
+                    <h2 class="display-6 fw-bold mb-3">
+                        Pilotez votre portefeuille<br class="d-none d-md-block" />
+                        commercial simplement.
+                    </h2>
+                    <p class="lead opacity-90 mb-4">
+                        Une application responsive pour gérer vos clients et prospects,
+                        visualiser leurs localisations et suivre la météo de leurs villes.
+                    </p>
+
+                    <!-- Features -->
+                    <ul class="list-unstyled row g-3 mb-4">
+                        <li class="col-12 col-sm-6">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="fs-5">👥</span>
+                                <span class="small">Gestion clients &amp; prospects</span>
+                            </div>
+                        </li>
+                        <li class="col-12 col-sm-6">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="fs-5">🗺️</span>
+                                <span class="small">Carte interactive Leaflet OSM</span>
+                            </div>
+                        </li>
+                        <li class="col-12 col-sm-6">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="fs-5">🌤️</span>
+                                <span class="small">Météo en temps réel</span>
+                            </div>
+                        </li>
+                        <li class="col-12 col-sm-6">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="fs-5">🔒</span>
+                                <span class="small">Conforme RGPD / RGAA</span>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <!-- CTA mobile (caché sur desktop) -->
+                    <div class="d-lg-none">
+                        <button type="button" id="btn-connexion-hero"
+                                class="btn btn-light btn-lg fw-bold px-5 shadow"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modal-connexion">
+                            🔑 Se connecter
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Colonne droite : carte de connexion (desktop) -->
+                <div class="col-lg-5 offset-lg-1 d-none d-lg-block">
+                    <div class="card shadow-lg border-0 rounded-4 p-4">
+                        <div class="card-body">
+                            <h3 class="h5 fw-bold text-center text-dark mb-4">
+                                Accéder à mon espace
+                            </h3>
+
+                            <!-- Formulaire inline sur desktop -->
+                            <form id="form-connexion-hero" novalidate
+                                  aria-label="Formulaire de connexion">
+
+                                <!-- Identifiant -->
+                                <div class="mb-3">
+                                    <label for="hero-identifiant" class="form-label text-dark">
+                                        Identifiant
+                                        <span class="text-danger" aria-hidden="true">*</span>
+                                    </label>
+                                    <input type="text" id="hero-identifiant"
+                                           name="identifiant" class="form-control"
+                                           placeholder="Votre identifiant"
+                                           required autocomplete="username"
+                                           aria-required="true"
+                                           aria-describedby="hero-identifiant-erreur" />
+                                    <div id="hero-identifiant-erreur"
+                                         class="invalid-feedback" role="alert" hidden>
+                                        L'identifiant est obligatoire.
+                                    </div>
+                                </div>
+
+                                <!-- Mot de passe -->
+                                <div class="mb-3">
+                                    <label for="hero-mdp" class="form-label text-dark">
+                                        Mot de passe
+                                        <span class="text-danger" aria-hidden="true">*</span>
+                                    </label>
+                                    <div class="input-group">
+                                        <input type="password" id="hero-mdp"
+                                               name="motDePasse" class="form-control"
+                                               placeholder="Votre mot de passe"
+                                               required autocomplete="current-password"
+                                               aria-required="true"
+                                               aria-describedby="hero-mdp-erreur" />
+                                        <button type="button" class="btn btn-outline-secondary"
+                                                id="btn-toggle-hero-mdp"
+                                                aria-label="Afficher le mot de passe"
+                                                aria-pressed="false">👁</button>
+                                    </div>
+                                    <div id="hero-mdp-erreur"
+                                         class="invalid-feedback" role="alert" hidden>
+                                        Le mot de passe est obligatoire.
+                                    </div>
+                                </div>
+
+                                <!-- Se souvenir -->
+                                <div class="mb-4 form-check">
+                                    <input type="checkbox" id="hero-remember"
+                                           class="form-check-input" />
+                                    <label for="hero-remember"
+                                           class="form-check-label text-dark small">
+                                        Se souvenir de moi
+                                    </label>
+                                </div>
+
+                                <!-- Bouton -->
+                                <div class="d-grid">
+                                    <button type="submit"
+                                            class="btn btn-primary btn-lg fw-bold">
+                                        Se connecter
+                                    </button>
+                                </div>
+                            </form>
+
+                            <p class="text-center mt-3 mb-0">
+                                <a href="#" class="link-secondary small">
+                                    Mot de passe oublié ?
+                                </a>
+                            </p>
+
+                            <!-- Séparateur -->
+                            <hr class="my-3" />
+                            <p class="text-center text-muted small mb-0">
+                                ECF Front-end Web — AFPA 2026
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECTION FEATURES (sous le hero) ========== -->
+    <section class="py-5 bg-white" aria-labelledby="titre-features">
+        <div class="container">
+            <h2 id="titre-features"
+                class="text-center fw-bold mb-5">
+                Tout ce dont vous avez besoin
+            </h2>
+            <div class="row g-4">
+
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="card card-feature shadow-sm h-100 p-3">
+                        <div class="card-body text-center">
+                            <div class="feature-icon mx-auto mb-3">📋</div>
+                            <h3 class="h6 fw-bold">Fiches complètes</h3>
+                            <p class="text-muted small mb-0">
+                                Saisie, modification et suppression de vos fiches
+                                clients et prospects.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="card card-feature shadow-sm h-100 p-3">
+                        <div class="card-body text-center">
+                            <div class="feature-icon mx-auto mb-3">📍</div>
+                            <h3 class="h6 fw-bold">Géolocalisation</h3>
+                            <p class="text-muted small mb-0">
+                                Auto-complétion d'adresse via API gouv.fr
+                                et carte Leaflet interactive.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="card card-feature shadow-sm h-100 p-3">
+                        <div class="card-body text-center">
+                            <div class="feature-icon mx-auto mb-3">🌦️</div>
+                            <h3 class="h6 fw-bold">Météo locale</h3>
+                            <p class="text-muted small mb-0">
+                                Température, vent, humidité en temps réel
+                                via Open-Meteo.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="card card-feature shadow-sm h-100 p-3">
+                        <div class="card-body text-center">
+                            <div class="feature-icon mx-auto mb-3">🛡️</div>
+                            <h3 class="h6 fw-bold">RGPD &amp; RGAA</h3>
+                            <p class="text-muted small mb-0">
+                                Consentement, mentions légales Art. 13
+                                et accessibilité complète.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- ========== FOOTER ========== -->
+<footer class="bg-light border-top py-3 text-center text-muted small">
+    &copy; 2026 SwingApp CRM — ECF Front-end Web AFPA
+    &nbsp;|&nbsp;
+    <a href="../src/mentions-legales.html" class="text-muted">Mentions légales</a>
+</footer>
+
+<!-- ========== MODAL CONNEXION (mobile) ========== -->
+<div class="modal fade" id="modal-connexion" tabindex="-1"
+     aria-labelledby="modal-connexion-titre"
+     aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title h5" id="modal-connexion-titre">
+                    Connexion
+                </h2>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Fermer la fenêtre de connexion"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form-connexion-modal" novalidate
+                      aria-label="Formulaire de connexion">
+                    <div class="mb-3">
+                        <label for="modal-identifiant" class="form-label">
+                            Identifiant
+                            <span class="text-danger" aria-hidden="true">*</span>
+                        </label>
+                        <input type="text" id="modal-identifiant"
+                               name="identifiant" class="form-control"
+                               placeholder="Votre identifiant"
+                               required autocomplete="username"
+                               aria-required="true"
+                               aria-describedby="modal-id-erreur"
+                               autofocus />
+                        <div id="modal-id-erreur"
+                             class="invalid-feedback" role="alert" hidden>
+                            L'identifiant est obligatoire.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="modal-mdp" class="form-label">
+                            Mot de passe
+                            <span class="text-danger" aria-hidden="true">*</span>
+                        </label>
+                        <div class="input-group">
+                            <input type="password" id="modal-mdp"
+                                   name="motDePasse" class="form-control"
+                                   placeholder="Votre mot de passe"
+                                   required autocomplete="current-password"
+                                   aria-required="true"
+                                   aria-describedby="modal-mdp-erreur" />
+                            <button type="button" class="btn btn-outline-secondary"
+                                    id="btn-toggle-modal-mdp"
+                                    aria-label="Afficher le mot de passe"
+                                    aria-pressed="false">👁</button>
+                        </div>
+                        <div id="modal-mdp-erreur"
+                             class="invalid-feedback" role="alert" hidden>
+                            Le mot de passe est obligatoire.
+                        </div>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" id="modal-remember"
+                               class="form-check-input" />
+                        <label for="modal-remember" class="form-check-label small">
+                            Se souvenir de moi
+                        </label>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">
+                            Se connecter
+                        </button>
+                    </div>
+                </form>
+                <p class="text-center mt-3 mb-0">
+                    <a href="#" class="link-secondary small">Mot de passe oublié ?</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../src/js/rgpd-consent.js"></script>
+<script src="../src/js/login.js"></script>
+</body>
+</html>
