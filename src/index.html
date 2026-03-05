@@ -88,6 +88,20 @@
             </button>
 
         </div>
+
+        <!-- Header : connexion/déconnexion -->
+        <div class="dropdown ms-2">
+            <button class="btn btn-outline-light dropdown-toggle d-none d-lg-inline-flex"
+                    type="button" id="btn-connexion" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                <span class="me-1">👤</span> Connecté
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                    <a class="dropdown-item" href="#" id="btn-deconnexion">Se déconnecter</a>
+                </li>
+            </ul>
+        </div>
     </nav>
 
 </header>
@@ -667,9 +681,41 @@
     </div>
 </div>
 
+<!-- ======= MODAL DÉCONNEXION ======= -->
+<div class="modal fade" id="modal-deconnexion" tabindex="-1"
+     aria-labelledby="titre-deconnexion" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="titre-deconnexion">
+                    Confirmer la déconnexion
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer">
+
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">
+                    Êtes-vous sûr de vouloir vous déconnecter ?<br>
+                    <small class="text-muted">Votre session sera fermée.</small>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Annuler
+                </button>
+                <button type="button" class="btn btn-danger" id="confirm-deconnexion">
+                    Se déconnecter
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../src/js/modal-connexion.js"></script>
 <script src="../src/js/modal-suppression.js"></script>
+<script src="../src/js/modal-deconnexion.js"></script>
 <script src="../src/js/rgpd-consent.js"></script>
 
 </body>
