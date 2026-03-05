@@ -2,15 +2,7 @@
 <html lang="fr">
 <head>
     <!-- Guard session : redirige vers login.html si non connecté -->
-    <script>
-        (function() {
-            var session = localStorage.getItem('user-session');
-            if (!session) {
-                window.location.replace('login.html');
-            }
-        })();
-    </script>
-
+    <script src="../src/js/auth-guard.js"></script>
     <meta charset="UTF-8">
     <title>ECF Front End - Page d'accueil</title>
 
@@ -578,7 +570,6 @@
 </div>
 
 <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<!--<script src="../src/js/modal-connexion.js"></script>-->
 <script src="../src/js/modal-suppression.js"></script>
 <script src="../src/js/modal-deconnexion.js"></script>
 <script src="../src/js/rgpd-consent.js"></script>
