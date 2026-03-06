@@ -55,7 +55,7 @@
                             type="text"
                             class="form-control"
                             id="raison-sociale"
-                            name="raisonSociale"
+                            name="raison-sociale"
                             placeholder="Ex : ACME Corporation"
                             required
                             autocomplete="organization"
@@ -66,7 +66,7 @@
                         Doit être unique parmi tous les clients et prospects.
                     </div>
 
-                    <div id="raison-sociale-erreur" class="invalid-feedback" role="alert">
+                    <div id="raison-sociale-erreur" class="invalid-feedback" role="alert" hidden>
                         La raison sociale est obligatoire et doit être unique.
                     </div>
                 </div>
@@ -80,14 +80,14 @@
                             type="email"
                             class="form-control"
                             id="email-client"
-                            name="email"
+                            name="email-client"
                             placeholder="Ex : contact@societe.fr"
                             required
                             autocomplete="email"
                             aria-required="true"
                             aria-describedby="email-client-erreur"
                     >
-                    <div id="email-client-erreur" class="invalid-feedback" role="alert">
+                    <div id="email-client-erreur" class="invalid-feedback" role="alert" hidden>
                         Veuillez saisir une adresse email valide (ex : contact@societe.fr).
                     </div>
                 </div>
@@ -103,8 +103,8 @@
 
                     <!-- Téléphone -->
                     <div class="col-12 col-md-6">
-                        <label for="telephone" class="form-label">Téléphone <span class="text-danger"
-                                                                                  aria-hidden="true">*</span></label>
+                        <label for="telephone" class="form-label">
+                            Téléphone <span class="text-danger" aria-hidden="true">*</span></label>
                         <input
                                 type="tel"
                                 id="telephone"
@@ -118,7 +118,7 @@
                                 pattern="[0-9]{10}"
                                 maxlength="10"
                         >
-                        <div id="telephone-erreur" class="invalid-feedback" role="alert">
+                        <div id="telephone-erreur" class="invalid-feedback" role="alert" hidden>
                             Le téléphone doit contenir exactement 10 chiffres.
                         </div>
                     </div>
@@ -131,7 +131,7 @@
                             <input
                                     type="number"
                                     id="ca-annuel"
-                                    name="chiffreAffaire"
+                                    name="ca-annuel"
                                     class="form-control"
                                     placeholder="Ex : 150000"
                                     required
@@ -142,7 +142,7 @@
                             <span class="input-group-text">€</span>
                         </div>
                         <div id="ca-aide" class="form-text">Minimum 200€.</div>
-                        <div id="ca-annuel-erreur" class="invalid-feedback" role="alert">
+                        <div id="ca-annuel-erreur" class="invalid-feedback" role="alert" hidden>
                             Le CA annuel doit être supérieur ou égal à 200€.
                         </div>
                     </div>
@@ -155,7 +155,7 @@
                         <input
                                 type="number"
                                 id="nb-employes"
-                                name="nbEmployes"
+                                name="nb-employes"
                                 class="form-control"
                                 placeholder="Ex : 45"
                                 required
@@ -163,7 +163,7 @@
                                 aria-required="true"
                                 aria-describedby="nb-employes-erreur"
                         >
-                        <div id="nb-employes-erreur" class="invalid-feedback" role="alert">
+                        <div id="nb-employes-erreur" class="invalid-feedback" role="alert" hidden>
                             Le nombre d'employés doit être supérieur ou égal à 1.
                         </div>
                     </div>
@@ -217,7 +217,7 @@
                     </ul>
 
                     <div id="rue-erreur" class="invalid-feedback" role="alert" hidden>
-<!--                        La rue est obligatoire.-->
+                        La rue est obligatoire.
                     </div>
 
                 </div>
@@ -231,7 +231,7 @@
                         <input
                                 type="text"
                                 id="code-postal"
-                                name="codePostal"
+                                name="code-postal"
                                 class="form-control"
                                 placeholder="Ex : 75002"
                                 required
@@ -241,7 +241,7 @@
                                 pattern="[0-9]{5}"
                                 maxlength="5"
                         >
-                        <div id="cp-erreur" class="invalid-feedback" role="alert">
+                        <div id="code-postal-erreur" class="invalid-feedback" role="alert" hidden>
                             Le code postal doit contenir exactement 5 chiffres.
                         </div>
                     </div>

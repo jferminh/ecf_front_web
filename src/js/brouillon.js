@@ -129,7 +129,8 @@ function restaurerFormulaire(formulaire, donnees) {
         // Adapter selon le type de champ
         if (champ.type === "checkbox") {
             // Checkbox : valeur booléenne
-            champ.checked = donnees[cle] === "on";
+            // champ.checked = donnees[cle] === "on";
+            champ.checked = !!donnees[cle];
         } else if (champ.tagName === "SELECT") {
             // Select : sélectionner l'option correspondante
             champ.value = donnees[cle];
