@@ -1,30 +1,32 @@
-# ECF Front-end Web – CRM Clients & Prospects
+# ECF Front-end Web — CRM Clients / Prospects
 
 Application web front-end responsive pour la gestion de clients et prospects,
-développée dans le cadre de l'ECF AFPA (Concepteur Développeur d'Applications).
+développée dans le cadre de l’ECF AFPA « Participer au développement front d’un projet Web ».
 
 ---
 
 ## Stack technique
 
-| Technologie               | Usage |
-|---------------------------|---|
-| HTML5                     | Structure sémantique, validation native |
-| CSS3 + Bootstrap 5 + SASS | Mise en page responsive, composants UI |
-| JavaScript ES6 Vanilla    | Logique métier, validation, LocalStorage, APIs |
-| Leaflet.js                | Carte interactive (OpenStreetMap) |
-| Git Flow                  | Gestion des branches et versions |
-| LocalStorage              | Persistance des brouillons côté client |
-| API adresse.data.gouv.fr  | Géocodage adresse → coordonnées GPS |
-| API Open-Meteo            | Météo depuis coordonnées GPS |
+| Technologie              | Usage                                                                 |
+|--------------------------|-----------------------------------------------------------------------|
+| HTML5                    | Structure sémantique, validation native                              |
+| CSS3 + SASS + Bootstrap  | Mise en page responsive, composants UI, thème personnalisé           |
+| JavaScript ES6 (Vanilla) | Logique métier, validation, LocalStorage, appels API                 |
+| Leaflet.js               | Carte interactive (tuiles OpenStreetMap)                             |
+| Git / Git Flow           | Branches `develop` + features, commits structurés                    |
+| LocalStorage             | Brouillons formulaires, session de démo                              |
+| API adresse.data.gouv.fr | Auto-complétion et géocodage des adresses                            |
+| API Open-Meteo           | Données météo actuelles depuis coordonnées GPS                       |
 
 ---
 
 ## Structure du projet
 
-```
-ecf_front_web/
-├── index.html
+```text
+ecf-front-web/
+├── login.html                    # Page d’accueil / connexion
+├── index.html                    # Tableau de bord clients / prospects (protégé par guard)
+├── mentions-legales.html         # Informations RGPD / légales
 ├── README.md
 ├── package.json
 ├── node_modules/
@@ -32,204 +34,198 @@ ecf_front_web/
 │   └── leaflet/
 └── src/
     ├── css/
-    │   └── style.css
+    │   ├── variables.scss        # Palette, espacements, breakpoints
+    │   ├── components.scss       # Composants (cards, hero, etc.)
+    │   ├── main.scss             # Point d’entrée SASS
+    │   └── main.css              # CSS compilé
     ├── js/
-    │   ├── brouillon.js
-    │   ├── utils-form.js
-    │   ├── form-client.js
-    │   ├── form-prospect.js
-    │   ├── modal.js
-    │   ├── geo-adresse.js
-    │   ├── meteo.js
-    │   ├── carte.js
-    │   └── detail.js
+    │   ├── auth-guard.js         # Redirection vers login si session absente/expirée
+    │   ├── login.js              # Connexion, validation, création de user-session
+    │   ├── rgpd-consent.js       # Bandeau consentement LocalStorage
+    │   ├── modal.js              # Modale suppression + modale déconnexion
+    │   ├── brouillon.js          # Sauvegarde / restauration brouillons formulaires
+    │   ├── utils-form.js         # Validation générique + auto-sauvegarde
+    │   ├── form-client.js        # Configuration validation formulaire client
+    │   ├── form-prospect.js      # Configuration validation formulaire prospect
+    │   ├── geo-adresse.js        # Auto-complétion adresse (API adresse.data.gouv.fr)
+    │   ├── meteo.js              # Appels Open-Meteo et affichage météo
+    │   ├── carte.js              # Initialisation carte Leaflet
+    │   └── detail.js             # Orchestration des pages détail (météo + carte)
     └── pages/
         ├── clients/
-        │   ├── form-client.html
-        │   └── detail-client.html
+        │   ├── form-client.html      # Formulaire création/édition client
+        │   └── detail-client.html    # Fiche détail client
         └── prospects/
-            ├── form-prospect.html
-            └── detail-prospect.html
+            ├── form-prospect.html    # Formulaire création/édition prospect
+            └── detail-prospect.html  # Fiche détail prospect
 ```
 
 ---
 
-## Fonctionnalités réalisées
+## Fonctionnalités
 
-### Navigation & Structure
-- Page d'accueil avec liste clients/prospects (onglets Bootstrap)
-- Navigation responsive avec menu hamburger
-- Header avec badge brouillon auto (`[data-badge-brouillon]`)
+### Connexion / Déconnexion
 
-### Formulaire Client (`form-client.html`)
-- Champs : raison sociale, email, téléphone, CA annuel, nombre d'employés,
-  adresse complète (rue, code postal, ville)
-- Validation HTML5 native (sans JS)
-- Validation JS progressive :
-    - Messages d'erreur personnalisés par type (`valueMissing`, `typeMismatch`,
-      `patternMismatch`, `rangeUnderflow`, `tooShort`, `badInput`)
-    - Validation au `blur` + correction temps réel au `input`
-    - Validation groupée à la soumission + focus sur premier champ invalide (RGAA)
+- Page `login.html` : page d’accueil avec hero, description de l’application, formulaire de connexion desktop + modal mobile.
+- Validation JS des champs identifiant / mot de passe (messages personnalisés, toggle afficher/masquer mot de passe).
+- Création d’une session de démo dans `LocalStorage` (`user-session`) et redirection vers `index.html`.
+- Guard `auth-guard.js` chargé dans le `<head>` de `index.html` : redirige vers `login.html` si la session est absente ou expirée.
+- Bouton **Déconnexion** dans le header de `index.html` : modale de confirmation, suppression de `user-session`, retour à `login.html`.
+
+### Tableau de bord
+
+- `index.html` : onglets **Clients** / **Prospects** avec :
+    - barre de recherche,
+    - bouton “Créer un client / prospect”,
+    - tableaux responsive (Bootstrap),
+    - pagination accessible (`nav` + `aria-label`, `aria-current`, `aria-disabled`).
+
+### Formulaire Client
+
+- Champs :
+    - raison sociale, email, téléphone,
+    - CA annuel, nombre d’employés,
+    - rue, code postal, ville.
+- Validation progressive :
+    - HTML5 native utilisable sans JS,
+    - avec JS : messages personnalisés par type d’erreur (`valueMissing`, `typeMismatch`, `patternMismatch`, `rangeUnderflow`, `tooShort`, `badInput`). [file:1]
+    - validation au `blur`, correction en temps réel au `input`,
+    - validation groupée à la soumission, focus sur le premier champ invalide (RGAA).
 - Brouillon LocalStorage :
-    - Sauvegarde manuelle (bouton 💾)
-    - Auto-sauvegarde toutes les 30 secondes + debounce 1s
-    - Restauration au chargement + état visuel cohérent
-    - Confirmation avant annulation si brouillon existant
+    - Sauvegarde manuelle via bouton “Enregistrer brouillon”.
+    - Auto-sauvegarde toutes les 30 secondes + après 1s d’inactivité (debounce).
+    - Restauration au chargement + bannière “Brouillon restauré”.
+    - Confirmation avant “Annuler” si un brouillon existe.
 - Auto-complétion adresse :
-    - Bouton 📍 + frappe automatique (debounce 400ms)
-    - Suggestions via API adresse.data.gouv.fr
-    - Navigation clavier + fermeture Échap (RGAA)
+    - Bouton ou frappe dans le champ rue → appel API adresse.data.gouv.fr avec debounce.
+    - Liste de suggestions accessible (clavier, Esc).
+    - Remplissage automatique de rue / code postal / ville + validation visuelle immédiate.
 
-### Formulaire Prospect (`form-prospect.html`)
-- Champs obligatoires : raison sociale, email, téléphone, adresse complète
-- Champs optionnels : niveau d'intérêt, date de prospection
-- Même logique de validation, brouillon et auto-complétion que le client
+### Formulaire Prospect
+
+- Champs obligatoires : raison sociale, email, téléphone, adresse (rue, code postal, ville).
+- Champs optionnels : niveau d’intérêt, date de prospection.
+- Même logique que le client pour :
+    - validation progressive,
+    - brouillon (`brouillon-prospect`),
+    - auto-sauvegarde,
+    - restauration + bannière,
+    - auto-complétion d’adresse.
 
 ### Pages Détail
-- Fiche récapitulative des données client/prospect
-- **Météo actuelle** : température, vent, humidité, emoji (Open-Meteo)
-- **Carte interactive Leaflet** : marqueur + popup sur l'adresse (OSM)
-- Météo + carte chargées en parallèle (`Promise.all`)
 
-### Modales
-- **Modale Connexion** : login/mot de passe, validation, fermeture ESC
-- **Modale Suppression** : confirmation, focus trap RGAA
+- `detail-client.html` et `detail-prospect.html` : fiches récapitulatives.
+- Météo :
+    - Récupération des coordonnées de la ville.
+    - Appel Open-Meteo : température, vent, humidité, symbole météo.
+    - Affichage résumé météo.
+- Carte :
+    - Leaflet + tuiles OpenStreetMap.
+    - Marqueur sur l’adresse, popup avec le nom de l’entité.
+- Chargement parallèle météo + carte via `Promise.all` dans `detail.js`.
+
+---
+
+## RGPD & Accessibilité
+
+### RGPD
+
+- Bandeau de consentement sur l’utilisation de LocalStorage (`rgpd-consent`, durée 30 jours).
+- Bloc d’information RGPD sur chaque formulaire (finalités, droits, base légale).
+- Checkbox de consentement explicite :
+    - obligatoire,
+    - non incluse dans le brouillon pour respecter le Privacy by Design.
+- Page `mentions-legales.html` :
+    - responsable de traitement,
+    - types de données, finalités, durées de conservation,
+    - droits d’accès, rectification, opposition, portabilité,
+    - informations sur les API externes utilisées.
 
 ### Accessibilité (RGAA)
-- `aria-invalid`, `aria-describedby`, `aria-live="polite"`
-- Focus automatique sur premier champ invalide
-- `role="application"` sur carte, `role="listbox"` sur suggestions
-- Navigation clavier complète
+
+- Champs de formulaire :
+    - `aria-invalid`, `aria-describedby` vers la zone d’erreur,
+    - zones d’erreur avec `role="alert"` et `hidden` contrôlé en JS.
+- Modales :
+    - `role="dialog"`, `aria-modal="true"`, `aria-labelledby`,
+    - focus sur la modale à l’ouverture, fermeture avec `Esc`.
+- Liste de suggestions adresse :
+    - `role="listbox"` + éléments `role="option"`,
+    - navigation au clavier, fermeture avec `Esc`, clic extérieur.
+- Pages détail carte :
+    - `role="application"` sur la zone de carte pour certains lecteurs d’écran.
 
 ---
 
-## Architecture JavaScript
+## Architecture JavaScript (résumé)
 
-### `brouillon.js` – LocalStorage
-
-| Fonction | Rôle |
-|---|---|
-| `lireFormulaire(form)` | Lit tous les champs → objet |
-| `sauvegarderBrouillon(cle, donnees)` | Stocke dans LocalStorage |
-| `lireBrouillon(cle)` | Retourne les données |
-| `effacerBrouillon(cle)` | Supprime l'entrée |
-| `restaurerFormulaire(form, donnees)` | Remplit les champs |
-| `afficherBanniereBrouillon(form, heure)` | Bannière de restauration |
-| `afficherConfirmationBrouillon(btn)` | Feedback visuel bouton |
-
-### `utils-form.js` – Validation générique
-
-| Fonction | Rôle |
-|---|---|
-| `getMessageErreur(champ, messagesErreur)` | Message selon état validité |
-| `afficherErreur(champ, messagesErreur)` | `is-valid` / `is-invalid` |
-| `brancherValidation(messagesErreur)` | `blur` + `input` sur tous les champs |
-| `mettreAJourBadgeBrouillon(statut)` | Badge header |
-| `brancherAutoSauvegarde(form, cle)` | `setInterval` + debounce |
-| `brancherBoutonBrouillon(btnId, form, cle)` | Sauvegarde manuelle |
-| `restaurerAvecEtatVisuel(form, messagesErreur, cle)` | Restauration + visuel |
-| `brancherBoutonAnnuler(btnId, cle)` | Confirmation avant navigation |
-| `brancherSoumission(form, messagesErreur, cle)` | Validation groupée |
-
-### `geo-adresse.js` – Auto-complétion
-
-| Fonction | Rôle |
-|---|---|
-| `rechercherAdresse(recherche)` | Appel API → features GeoJSON |
-| `afficherSuggestions(liste, features, onChoix)` | Crée les `<li>` |
-| `masquerSuggestions(liste)` | Vide et masque la liste |
-| `remplirChampsAdresse(props, ...)` | Remplit rue, CP, ville |
-| `brancherGeoAdresse(config)` | Branche bouton 📍 + debounce |
-
-### `meteo.js` – Météo
-
-| Fonction | Rôle |
-|---|---|
-| `geocoderVille(ville)` | Ville → coordonnées GPS |
-| `recupererMeteo(lat, lon)` | Appel Open-Meteo |
-| `afficherDonneesMeteo(meteo, ville)` | Injecte les données météo |
-| `lancerMeteo(ville)` | Orchestre géocodage → météo |
-
-### `carte.js` – Leaflet
-
-| Fonction | Rôle |
-|---|---|
-| `geocoderAdresse(adresse)` | Adresse → coords + label + score |
-| `construireAdresse(donnees, estClient)` | Rue + CP + ville |
-| `initialiserCarte(lat, lon, label, nom)` | Carte + tuiles + marqueur |
-| `lancerCarte(donnees, estClient)` | Orchestre géocodage → carte |
-
-### `detail.js` – Orchestration
-
-| Fonction | Rôle |
-|---|---|
-| `remplirFicheDetail(donnees, estClient)` | Injecte dans les `<span>` |
-| `masquerSection(id)` | Masque si données manquantes |
-| `afficherMessageAucuneDonnee()` | Message + bouton retour |
+- `brouillon.js` :
+    - `lireFormulaire(form)`, `sauvegarderBrouillon(cle, donnees)`,
+    - `lireBrouillon(cle)`, `effacerBrouillon(cle)`,
+    - `restaurerFormulaire(form, donnees)`,
+    - `afficherBanniereBrouillon(form, heure)`,
+    - `afficherConfirmationBrouillon(btn)`.
+- `utils-form.js` :
+    - `getMessageErreur(champ, messagesErreur)`,
+    - `afficherErreur(champ, messagesErreur)`,
+    - `brancherValidation(messagesErreur)`,
+    - `mettreAJourBadgeBrouillon(statut)`,
+    - `brancherAutoSauvegarde(form, cle)`,
+    - `brancherBoutonBrouillon(btnId, form, cle)`,
+    - `restaurerAvecEtatVisuel(form, messagesErreur, cle)`,
+    - `brancherBoutonAnnuler(btnId, cle)`,
+    - `brancherSoumission(form, messagesErreur, cle)`.
+- `form-client.js` / `form-prospect.js` :
+    - définissent la constante `CLEBROUILLON` et la table `messagesErreur`,
+    - appellent uniquement les fonctions de `utils-form.js` + `brancherGeoAdresse`.
+- `geo-adresse.js` :
+    - `rechercherAdresse`, `afficherSuggestions`, `masquerSuggestions`,
+    - `remplirChampsAdresse`, `brancherGeoAdresse(config)`.
+- `meteo.js`, `carte.js`, `detail.js` :
+    - météo + Leaflet isolés et orchestrés sur les pages détail.
 
 ---
 
-## Ordre de chargement des scripts
+## Lancement du projet
 
-### Formulaires
-```html
-<script src="brouillon.js"></script>
-<script src="utils-form.js"></script>
-<script src="geo-adresse.js"></script>
-<script src="form-client.js"></script>
+1. Installer les dépendances :
+
+```bash
+npm install
 ```
 
-### Pages détail
-```html
-<script src="leaflet.js"></script>
-<script src="brouillon.js"></script>
-<script src="meteo.js"></script>
-<script src="carte.js"></script>
-<script src="detail.js"></script>
+2. Lancer watcher SASS :
+
+```bash
+npm run sass   # compilation SASS en continu
 ```
+
 
 ---
 
 ## Git Flow
 
-```
-main
- └── develop
-      ├── feature/phase1-structure-html
-      ├── feature/phase2-bootstrap-responsive
-      ├── feature/phase3-validation-client
-      ├── feature/phase4-brouillon-localstorage
-      ├── feature/phase5-modal-connexion
-      ├── feature/phase6-modal-suppression
-      ├── feature/phase7-brouillon-prospect
-      ├── feature/phase7-validation-prospect
-      ├── refactor/utils-form-js
-      ├── feature/geo-adresse
-      ├── feature/meteo
-      └── feature/leaflet-carte
-```
+- Branches principales :
+    - `main` : version stable.
+    - `develop` : intégration des features.
+- Branches de feature :
+    - `feature/...` pour chaque bloc fonctionnel (validation, brouillon, modales, géolocalisation, météo, carte, login).
 
 ---
 
-## APIs externes utilisées
+## APIs externes
 
-| API | URL | Auth |
-|---|---|---|
-| Adresse gouv.fr | `api-adresse.data.gouv.fr/search/` | Aucune |
-| Open-Meteo | `api.open-meteo.com/v1/forecast` | Aucune |
-| OpenStreetMap | `tile.openstreetmap.org` | Aucune |
-
----
-
-## Phases à venir
-
-- [ ] Backend – `fetch()` vers une API REST
-- [ ] Liste dynamique – Clients/prospects depuis le backend
-- [ ] Édition – Pré-remplissage formulaires en mode édition
+| API                  | URL                             | Authentification |
+|----------------------|---------------------------------|------------------|
+| Adresse.gouv.fr      | https://api-adresse.data.gouv.fr | Aucune           |
+| Open-Meteo           | https://api.open-meteo.com       | Aucune           |
+| OpenStreetMap (tuiles) | https://tile.openstreetmap.org  | Aucune           |
 
 ---
 
-## Auteur
+## Évolutions possibles
 
-**Jferminh** – Formation CDA AFPA
-ECF Front-end Web – Mars 2026
+- Connexion réelle à un backend JakartaEE (remplacement des redirections par des appels `fetch` vers une API REST).
+- Liste dynamique clients/prospects (CRUD complet côté serveur).
+- Gestion de rôles utilisateurs (admin / commercial).
+- Export CSV / PDF des listes.
