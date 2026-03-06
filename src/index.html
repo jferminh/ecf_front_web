@@ -76,19 +76,17 @@
             </div>
         </div>
 
-        <!-- Header : connexion/déconnexion -->
+        <!-- Header : déconnexion -->
         <div class="dropdown ms-2">
-            <button class="btn btn-outline-primary btn-sm"
-                    type="button" id="btn-deconnexion"
-                    aria-expanded="false">
-                <!--  data-bs-toggle="dropdown" -->
-                <span class="me-1">👤</span> Se déconnecter
+              <span class="text-dark small d-none d-md-inline" id="label-user">
+                👤 <span id="nom-utilisateur">admin</span>
+              </span>
+            <button type="button"
+                    class="btn btn-outline-primary btn-sm"
+                    id="btn-deconnexion"
+                    aria-label="Se déconnecter">
+                Déconnexion
             </button>
-<!--            <ul class="dropdown-menu dropdown-menu-end">-->
-<!--                <li>-->
-<!--                    <a class="dropdown-item" href="#" id="btn-connexion">Se déconnecter</a>-->
-<!--                </li>-->
-<!--            </ul>-->
         </div>
     </nav>
 
@@ -199,11 +197,13 @@
                         <td>Paris</td>
                         <td class="d-none d-lg-table-cell">150 000</td>
                         <td class="text-end">
-                            <a href="../src/pages/clients/form-client.html" class="btn btn-sm btn-outline-secondary me-1"
+                            <a href="../src/pages/clients/form-client.html"
+                               class="btn btn-sm btn-outline-secondary me-1"
                                title="Modifier">
                                 ⚙️
                             </a>
-                            <a href="../src/pages/clients/detail-client.html" class="btn btn-sm btn-outline-primary me-1"
+                            <a href="../src/pages/clients/detail-client.html"
+                               class="btn btn-sm btn-outline-primary me-1"
                                title="Voir détails">
                                 📍
                             </a>
@@ -228,11 +228,13 @@
                         <td>Lyon</td>
                         <td class="d-none d-lg-table-cell">85 000</td>
                         <td class="text-end">
-                            <a href="../src/pages/clients/form-client.html" class="btn btn-sm btn-outline-secondary me-1"
+                            <a href="../src/pages/clients/form-client.html"
+                               class="btn btn-sm btn-outline-secondary me-1"
                                title="Modifier">
                                 ⚙️
                             </a>
-                            <a href="../src/pages/clients/detail-client.html" class="btn btn-sm btn-outline-primary me-1"
+                            <a href="../src/pages/clients/detail-client.html"
+                               class="btn btn-sm btn-outline-primary me-1"
                                title="Voir détails">
                                 📍
                             </a>
@@ -257,11 +259,13 @@
                         <td>Nice</td>
                         <td class="d-none d-lg-table-cell">220 000</td>
                         <td class="text-end">
-                            <a href="../src/pages/clients/form-client.html" class="btn btn-sm btn-outline-secondary me-1"
+                            <a href="../src/pages/clients/form-client.html"
+                               class="btn btn-sm btn-outline-secondary me-1"
                                title="Modifier">
                                 ⚙️
                             </a>
-                            <a href="../src/pages/clients/detail-client.html" class="btn btn-sm btn-outline-primary me-1"
+                            <a href="../src/pages/clients/detail-client.html"
+                               class="btn btn-sm btn-outline-primary me-1"
                                title="Voir détails">
                                 📍
                             </a>
@@ -375,11 +379,13 @@
                         <td>Rennes</td>
                         <td class="d-none d-lg-table-cell">Fort</td>
                         <td class="text-end">
-                            <a href="../src/pages/prospects/form-prospect.html" class="btn btn-sm btn-outline-secondary me-1"
+                            <a href="../src/pages/prospects/form-prospect.html"
+                               class="btn btn-sm btn-outline-secondary me-1"
                                title="Modifier">
                                 ⚙️
                             </a>
-                            <a href="../src/pages/prospects/detail-prospect.html" class="btn btn-sm btn-outline-primary me-1"
+                            <a href="../src/pages/prospects/detail-prospect.html"
+                               class="btn btn-sm btn-outline-primary me-1"
                                title="Voir détails">
                                 📍
                             </a>
@@ -396,11 +402,13 @@
                         <td>Bordeaux</td>
                         <td class="d-none d-lg-table-cell">Moyen</td>
                         <td class="text-end">
-                            <a href="../src/pages/prospects/form-prospect.html" class="btn btn-sm btn-outline-secondary me-1"
+                            <a href="../src/pages/prospects/form-prospect.html"
+                               class="btn btn-sm btn-outline-secondary me-1"
                                title="Modifier">
                                 ⚙️
                             </a>
-                            <a href="../src/pages/prospects/detail-prospect.html" class="btn btn-sm btn-outline-primary me-1"
+                            <a href="../src/pages/prospects/detail-prospect.html"
+                               class="btn btn-sm btn-outline-primary me-1"
                                title="Voir détails">
                                 📍
                             </a>
@@ -417,11 +425,13 @@
                         <td>Marseille</td>
                         <td class="d-none d-lg-table-cell">Faible</td>
                         <td class="text-end">
-                            <a href="../src/pages/prospects/form-prospect.html" class="btn btn-sm btn-outline-secondary me-1"
+                            <a href="../src/pages/prospects/form-prospect.html"
+                               class="btn btn-sm btn-outline-secondary me-1"
                                title="Modifier">
                                 ⚙️
                             </a>
-                            <a href="../src/pages/prospects/detail-prospect.html" class="btn btn-sm btn-outline-primary me-1"
+                            <a href="../src/pages/prospects/detail-prospect.html"
+                               class="btn btn-sm btn-outline-primary me-1"
                                title="Voir détails">
                                 📍
                             </a>
@@ -570,8 +580,7 @@
 </div>
 
 <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../src/js/modal-suppression.js"></script>
-<script src="../src/js/modal-deconnexion.js"></script>
+<script src="../src/js/modal.js"></script>
 <script src="../src/js/rgpd-consent.js"></script>
 
 </body>
