@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="../../../src/css/main.css">
     <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../../src/css/main.css">
+
+    <!--    <link rel="stylesheet" href="../../../src/css/main.css">-->
 </head>
 <body class="bg-light">
 <!-- HEADER FORMULAIRE -->
@@ -55,7 +56,7 @@
                             type="text"
                             class="form-control"
                             id="raison-sociale-p"
-                            name="raisonSociale"
+                            name="raison-sociale-p"
                             placeholder="Ex : ACME Corporation"
                             required
                             autocomplete="organization"
@@ -81,7 +82,7 @@
                             type="email"
                             class="form-control"
                             id="email-prospect"
-                            name="email"
+                            name="email-prospect"
                             placeholder="Ex : contact@societe.fr"
                             required
                             autocomplete="email"
@@ -113,13 +114,13 @@
                         <input
                                 type="tel"
                                 id="telephone-p"
-                                name="telephone"
+                                name="telephone-p"
                                 class="form-control"
                                 placeholder="Ex : 02 34 56 78 90"
                                 required
                                 autocomplete="tel"
                                 aria-required="true"
-                                aria-describedby="tel-p-erreur"
+                                aria-describedby="telephone-p-erreur"
                                 pattern="[0-9]{10}"
                                 maxlength="10"
                         >
@@ -135,7 +136,7 @@
                         </label>
                         <select
                                 id="interet-prospect"
-                                name="niveauInteret"
+                                name="interet-prospect"
                                 class="form-select"
                                 aria-describedby="interet-aide"
                         >
@@ -156,19 +157,21 @@
                         <input
                                 type="date"
                                 id="date-prospection"
-                                name="dateProspection"
+                                name="date-prospection"
                                 class="form-control"
                                 aria-describedby="date-p-aide"
                         >
                         <div id="date-p-aide" class="form-text">
                             Date du premier contact avec ce prospect.
                         </div>
+                        <div id="date-prospection-erreur" class="invalid-feedback" role="alert">
+                            Date de prospection obligatoire.
+                        </div>
                     </div>
 
                 </div>
             </div>
         </section>
-
 
         <!-- ======= SECTION 3 : ADRESSE POSTALE ======= -->
         <section aria-labelledby="titre-adresse" class="card mb-4">
@@ -180,18 +183,34 @@
                     <label for="rue-p" class="form-label">
                         Rue <span class="text-danger" aria-hidden="true">*</span>
                     </label>
-                    <input
-                            type="text"
-                            id="rue-p"
-                            name="rue"
-                            class="form-control"
-                            placeholder="Ex : 15 rue de la Paix"
-                            required
-                            autocomplete="street-address"
-                            aria-required="true"
-                            aria-describedby="rue-erreur"
-                    >
-                    <div id="rue-p-erreur" class="invalid-feedback" role="alert">
+                    <div class="input-group">
+                        <input
+                                type="text"
+                                id="rue-p"
+                                name="rue-p"
+                                class="form-control"
+                                placeholder="Ex : 15 rue de la Paix"
+                                required
+                                minlength="2"
+                                autocomplete="street-address"
+                                aria-required="true"
+                                aria-describedby="rue-erreur"
+                        />
+                        <button
+                                type="button"
+                                class="btn btn-secondary"
+                                id="btn-geo-p"
+                                title="Rechercher l'adresse"
+                                aria-label="Rechercher et auto-compléter l'adresse"
+                        >📍</button>
+                    </div>
+                    <ul
+                        id="suggestion-adresse-p"
+                        class="list-group position-absolute z-3 w-100 d-none"
+                        role="listbox"
+                        aria-label="Suggestion d'adresse"
+                    ></ul>
+                    <div id="rue-p-erreur" class="invalid-feedback" role="alert" hidden>
                         La rue est obligatoire.
                     </div>
                 </div>
@@ -199,13 +218,13 @@
                 <!-- Code postal + Ville sur la même ligne -->
                 <div class="row g-3 mb-3">
                     <div class="col-12 col-sm-4">
-                        <label for="code-postal" class="form-label">
+                        <label for="code-postal-p" class="form-label">
                             Code postal <span class="text-danger" aria-hidden="true">*</span>
                         </label>
                         <input
                                 type="text"
                                 id="code-postal-p"
-                                name="codePostal"
+                                name="code-postal-p"
                                 class="form-control"
                                 placeholder="Ex : 75002"
                                 required
@@ -215,7 +234,7 @@
                                 pattern="[0-9]{5}"
                                 maxlength="5"
                         >
-                        <div id="code-postal-erreur" class="invalid-feedback" role="alert">
+                        <div id="code-postal-p-erreur" class="invalid-feedback" role="alert">
                             Le code postal doit contenir exactement 5 chiffres.
                         </div>
                     </div>
@@ -226,7 +245,7 @@
                         <input
                                 type="text"
                                 id="ville-p"
-                                name="ville"
+                                name="ville-p"
                                 class="form-control"
                                 placeholder="Ex : Paris"
                                 required
@@ -239,28 +258,78 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Bouton géolocalisation -->
-                <div class="d-grid d-sm-block">
-                    <button
-                            type="button"
-                            id="btn-geoloc"
-                            class="btn btn-outline-secondary"
-                            aria-describedby="geoloc-aide"
-                    >
-                        📍 Obtenir les coordonnées GPS
-                    </button>
-                    <div id="geoloc-aide" class="form-text mt-1">
-                        Utilise l'API Adresse.gouv.fr à partir de la rue, CP et ville.
-                    </div>
-                </div>
             </div>
         </section>
 
-        <!-- ======= BARRE D'ACTIONS ======= -->
-        <div class="d-flex flex-column flex-sm-row justify-content-between gap-2 mt-2 mb-5">
+        <!-- ================================================
+         RGPD-1 : Mention d'information (Art. 13 RGPD)
+         HORS de la barre d'actions
+         ================================================ -->
+        <div
+                class="alert alert-light border mt-4"
+                role="note"
+                aria-label="Informations sur la collecte de données personnelles"
+        >
+            <h2 class="h6 fw-bold mb-2">
+                🔒 Informations sur vos données personnelles
+            </h2>
 
-            <!-- Annuler -->
+            <p class="mb-2 small">
+                Les données collectées dans ce formulaire sont destinées à la gestion
+                de votre relation commerciale. Elles sont traitées par
+                <strong>AFPA</strong>, responsable de traitement.
+            </p>
+
+            <ul class="small mb-2">
+                <li><strong>Finalité :</strong> gestion des clients et prospects</li>
+                <li><strong>Base légale :</strong> intérêt légitime (Art. 6.1.f RGPD)</li>
+                <li>
+                    <strong>Durée de conservation :</strong> données supprimées
+                    automatiquement après 30 jours sans activité
+                </li>
+                <li>
+                    <strong>Destinataires :</strong> usage interne uniquement,
+                    aucune transmission à des tiers
+                </li>
+            </ul>
+
+            <p class="small mb-0">
+                Conformément au RGPD, vous disposez d'un droit d'accès, de rectification
+                et de suppression de vos données.
+                <a href="../../mentions-legales.html" class="alert-link">
+                    En savoir plus
+                </a>
+            </p>
+        </div>
+
+        <!-- Consentement explicite -->
+        <div class="form-check mt-2 mb-4">
+            <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="consentement-prospect"
+                    name="consentement"
+                    required
+                    aria-describedby="consentement-prospect-erreur"
+            />
+            <label class="form-check-label" for="consentement-prospect">
+                J'ai lu et j'accepte que mes données soient traitées conformément
+                à la politique de confidentialité.
+                <span aria-hidden="true"> *</span>
+            </label>
+            <div
+                    id="consentement-prospect-erreur"
+                    class="invalid-feedback"
+                    hidden
+            >
+                Vous devez accepter pour continuer.
+            </div>
+        </div>
+
+        <!-- ======= BARRE D'ACTIONS ======= -->
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mt-2 mb-5 pt-3 border-top">
+
+            <!-- Groupe gauche : action secondaire -->
             <a
                     href="../../index.html"
                     class="btn btn-outline-secondary"
@@ -269,9 +338,8 @@
                 ❌ Annuler
             </a>
 
-            <div class="d-flex flex-column flex-sm-row gap-2">
-
-                <!-- Enregistrer brouillon -->
+            <!-- Groupe droit : actions principales -->
+            <div class="d-flex flex-wrap gap-2">
                 <button
                         type="button"
                         id="btn-brouillon-p"
@@ -280,17 +348,17 @@
                     💾 Enregistrer brouillon
                 </button>
 
-                <!-- Enregistrer le client -->
                 <button
                         type="submit"
                         id="btn-soumettre"
                         class="btn btn-primary"
                 >
-                    ✅ Enregistrer le prospect
+                    ✅ Enregistrer le client
                 </button>
-
             </div>
+
         </div>
+
     </form>
 </main>
 <!-- Bootstrap JS local -->
@@ -298,6 +366,7 @@
 <!-- Ordre obligatoire : utilitaires → métier -->
 <script src="../../js/brouillon.js"></script>
 <script src="../../js/utils-form.js"></script>
+<script src="../../js/geo-adresse.js"></script>
 <script src="../../js/form-prospect.js"></script>
 
 </body>

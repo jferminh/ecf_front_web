@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Nouveau Client - ECF Front-End</title>
+    <meta name="description" content="Formulaire de création d'un nouveau client.">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="../../../src/css/main.css">
+    <!--    <link rel="stylesheet" href="../../../src/css/main.css">-->
     <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../../src/css/main.css">
-    <meta name="description" content="Formulaire de création d'un nouveau client.">
 </head>
 <body class="bg-light">
 <!-- HEADER FORMULAIRE -->
@@ -55,7 +55,7 @@
                             type="text"
                             class="form-control"
                             id="raison-sociale"
-                            name="raisonSociale"
+                            name="raison-sociale"
                             placeholder="Ex : ACME Corporation"
                             required
                             autocomplete="organization"
@@ -66,7 +66,7 @@
                         Doit être unique parmi tous les clients et prospects.
                     </div>
 
-                    <div id="raison-sociale-erreur" class="invalid-feedback" role="alert">
+                    <div id="raison-sociale-erreur" class="invalid-feedback" role="alert" hidden>
                         La raison sociale est obligatoire et doit être unique.
                     </div>
                 </div>
@@ -80,14 +80,14 @@
                             type="email"
                             class="form-control"
                             id="email-client"
-                            name="email"
+                            name="email-client"
                             placeholder="Ex : contact@societe.fr"
                             required
                             autocomplete="email"
                             aria-required="true"
                             aria-describedby="email-client-erreur"
                     >
-                    <div id="email-client-erreur" class="invalid-feedback" role="alert">
+                    <div id="email-client-erreur" class="invalid-feedback" role="alert" hidden>
                         Veuillez saisir une adresse email valide (ex : contact@societe.fr).
                     </div>
                 </div>
@@ -103,8 +103,8 @@
 
                     <!-- Téléphone -->
                     <div class="col-12 col-md-6">
-                        <label for="telephone" class="form-label">Téléphone <span class="text-danger"
-                                                                                  aria-hidden="true">*</span></label>
+                        <label for="telephone" class="form-label">
+                            Téléphone <span class="text-danger" aria-hidden="true">*</span></label>
                         <input
                                 type="tel"
                                 id="telephone"
@@ -118,7 +118,7 @@
                                 pattern="[0-9]{10}"
                                 maxlength="10"
                         >
-                        <div id="telephone-erreur" class="invalid-feedback" role="alert">
+                        <div id="telephone-erreur" class="invalid-feedback" role="alert" hidden>
                             Le téléphone doit contenir exactement 10 chiffres.
                         </div>
                     </div>
@@ -131,7 +131,7 @@
                             <input
                                     type="number"
                                     id="ca-annuel"
-                                    name="chiffreAffaire"
+                                    name="ca-annuel"
                                     class="form-control"
                                     placeholder="Ex : 150000"
                                     required
@@ -142,7 +142,7 @@
                             <span class="input-group-text">€</span>
                         </div>
                         <div id="ca-aide" class="form-text">Minimum 200€.</div>
-                        <div id="ca-annuel-erreur" class="invalid-feedback" role="alert">
+                        <div id="ca-annuel-erreur" class="invalid-feedback" role="alert" hidden>
                             Le CA annuel doit être supérieur ou égal à 200€.
                         </div>
                     </div>
@@ -155,7 +155,7 @@
                         <input
                                 type="number"
                                 id="nb-employes"
-                                name="nbEmployes"
+                                name="nb-employes"
                                 class="form-control"
                                 placeholder="Ex : 45"
                                 required
@@ -163,7 +163,7 @@
                                 aria-required="true"
                                 aria-describedby="nb-employes-erreur"
                         >
-                        <div id="nb-employes-erreur" class="invalid-feedback" role="alert">
+                        <div id="nb-employes-erreur" class="invalid-feedback" role="alert" hidden>
                             Le nombre d'employés doit être supérieur ou égal à 1.
                         </div>
                     </div>
@@ -182,20 +182,44 @@
                     <label for="rue" class="form-label">
                         Rue <span class="text-danger" aria-hidden="true">*</span>
                     </label>
-                    <input
-                            type="text"
-                            id="rue"
-                            name="rue"
-                            class="form-control"
-                            placeholder="Ex : 15 rue de la Paix"
-                            required
-                            autocomplete="street-address"
-                            aria-required="true"
-                            aria-describedby="rue-erreur"
+
+                    <div class="input-group">
+                        <input
+                                type="text"
+                                id="rue"
+                                name="rue"
+                                class="form-control"
+                                placeholder="Ex : 15 rue de la Paix"
+                                required
+                                minlength="2"
+                                autocomplete="street-address"
+                                aria-required="true"
+                                aria-describedby="rue-erreur"
+                        />
+                        <button
+                                type="button"
+                                class="btn btn-outline-secondary"
+                                id="btn-geo"
+                                title="Rechercher l'adresse"
+                                aria-label="Rechercher et auto-compléter l'adresse"
+                        >
+                            📍
+                        </button>
+                    </div>
+
+                    <!-- Suggestions API adresse.gouv.fr -->
+                    <ul
+                            id="suggestion-adresse"
+                            class="list-group position-absolute z-3 w-100 d-none"
+                            role="listbox"
+                            aria-label="Suggestion d'adresse"
                     >
-                    <div id="rue-erreur" class="invalid-feedback" role="alert">
+                    </ul>
+
+                    <div id="rue-erreur" class="invalid-feedback" role="alert" hidden>
                         La rue est obligatoire.
                     </div>
+
                 </div>
 
                 <!-- Code postal + Ville sur la même ligne -->
@@ -207,7 +231,7 @@
                         <input
                                 type="text"
                                 id="code-postal"
-                                name="codePostal"
+                                name="code-postal"
                                 class="form-control"
                                 placeholder="Ex : 75002"
                                 required
@@ -217,7 +241,7 @@
                                 pattern="[0-9]{5}"
                                 maxlength="5"
                         >
-                        <div id="cp-erreur" class="invalid-feedback" role="alert">
+                        <div id="code-postal-erreur" class="invalid-feedback" role="alert" hidden>
                             Le code postal doit contenir exactement 5 chiffres.
                         </div>
                     </div>
@@ -241,28 +265,78 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Bouton géolocalisation -->
-                <div class="d-grid d-sm-block">
-                    <button
-                            type="button"
-                            id="btn-geoloc"
-                            class="btn btn-outline-secondary"
-                            aria-describedby="geoloc-aide"
-                    >
-                        📍 Obtenir les coordonnées GPS
-                    </button>
-                    <div id="geoloc-aide" class="form-text mt-1">
-                        Utilise l'API Adresse.gouv.fr à partir de la rue, CP et ville.
-                    </div>
-                </div>
             </div>
         </section>
 
-        <!-- ======= BARRE D'ACTIONS ======= -->
-        <div class="d-flex flex-column flex-sm-row justify-content-between gap-2 mt-2 mb-5">
+        <!-- ================================================
+         RGPD-1 : Mention d'information (Art. 13 RGPD)
+         HORS de la barre d'actions
+         ================================================ -->
+        <div
+                class="alert alert-light border mt-4"
+                role="note"
+                aria-label="Informations sur la collecte de données personnelles"
+        >
+            <h2 class="h6 fw-bold mb-2">
+                🔒 Informations sur vos données personnelles
+            </h2>
 
-            <!-- Annuler -->
+            <p class="mb-2 small">
+                Les données collectées dans ce formulaire sont destinées à la gestion
+                de votre relation commerciale. Elles sont traitées par
+                <strong>AFPA</strong>, responsable de traitement.
+            </p>
+
+            <ul class="small mb-2">
+                <li><strong>Finalité :</strong> gestion des clients et prospects</li>
+                <li><strong>Base légale :</strong> intérêt légitime (Art. 6.1.f RGPD)</li>
+                <li>
+                    <strong>Durée de conservation :</strong> données supprimées
+                    automatiquement après 30 jours sans activité
+                </li>
+                <li>
+                    <strong>Destinataires :</strong> usage interne uniquement,
+                    aucune transmission à des tiers
+                </li>
+            </ul>
+
+            <p class="small mb-0">
+                Conformément au RGPD, vous disposez d'un droit d'accès, de rectification
+                et de suppression de vos données.
+                <a href="../../mentions-legales.html" class="alert-link">
+                    En savoir plus
+                </a>
+            </p>
+        </div>
+
+        <!-- Consentement explicite -->
+        <div class="form-check mt-2 mb-4">
+            <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="consentement-client"
+                    name="consentement"
+                    required
+                    aria-describedby="consentement-client-erreur"
+            />
+            <label class="form-check-label" for="consentement-client">
+                J'ai lu et j'accepte que mes données soient traitées conformément
+                à la politique de confidentialité.
+                <span aria-hidden="true"> *</span>
+            </label>
+            <div
+                    id="consentement-client-erreur"
+                    class="invalid-feedback"
+                    hidden
+            >
+                Vous devez accepter pour continuer.
+            </div>
+        </div>
+
+        <!-- ======= BARRE D'ACTIONS ======= -->
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mt-2 mb-5 pt-3 border-top">
+
+            <!-- Groupe gauche : action secondaire -->
             <a
                     href="../../index.html"
                     class="btn btn-outline-secondary"
@@ -271,9 +345,8 @@
                 ❌ Annuler
             </a>
 
-            <div class="d-flex flex-column flex-sm-row gap-2">
-
-                <!-- Enregistrer brouillon -->
+            <!-- Groupe droit : actions principales -->
+            <div class="d-flex flex-wrap gap-2">
                 <button
                         type="button"
                         id="btn-brouillon"
@@ -282,7 +355,6 @@
                     💾 Enregistrer brouillon
                 </button>
 
-                <!-- Enregistrer le client -->
                 <button
                         type="submit"
                         id="btn-soumettre"
@@ -290,9 +362,10 @@
                 >
                     ✅ Enregistrer le client
                 </button>
-
             </div>
+
         </div>
+
     </form>
 </main>
 <!-- Bootstrap JS local -->
@@ -300,6 +373,7 @@
 <!-- Ordre obligatoire : utilitaires → métier -->
 <script src="../../js/brouillon.js"></script>
 <script src="../../js/utils-form.js"></script>
+<script src="../../js/geo-adresse.js"></script>
 <script src="../../js/form-client.js"></script>
 
 </body>

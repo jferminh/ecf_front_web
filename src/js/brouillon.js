@@ -13,13 +13,34 @@
 function lireFormulaire(formulaire) {
     const donnees = {};
 
-    // FormData permet de lire tous les champs d'un formulaire
-    // en une seule instruction, sans les nommer un par un
-    const formData = new FormData(formulaire);
+    /*
+     * Champs exclus de la lecture :
+     * - Les checkboxes de consentement RGPD ne doivent jamais
+     *   être sauvegardées (Art. 25 RGPD – Privacy by Design)
+     * - L'utilisateur doit recocher explicitement à chaque visite
+     */
+    // const formData = new FormData(formulaire);
+    const CHAMPS_EXCLUS = [
+        "consentement",
+        "consentement-client",
+        "consentement-prospect",
+    ];
 
-    formData.forEach(function (valeur, cle) {
-        donnees[cle] = valeur;
-    })
+    // formData.forEach(function (valeur, cle) {
+    //     donnees[cle] = valeur;
+    // })
+    const elements = formulaire.elements;
+    for (let i = 0; i < elements.length; i++) {
+        const champ = elements[i];
+        // Ignorer les champs sans ID ou exclus
+        if (!champ.id || CHAMPS_EXCLUS.includes(champ.id)) continue;
+
+        // Ignorer les boutons
+        if (champ.type === "submit" || champ.type === "button") continue;
+
+        // Lire la valeur
+        donnees[champ.id] = champ.value || "";
+    }
 
     return donnees;
 }
@@ -108,7 +129,8 @@ function restaurerFormulaire(formulaire, donnees) {
         // Adapter selon le type de champ
         if (champ.type === "checkbox") {
             // Checkbox : valeur booléenne
-            champ.checked = donnees[cle] === "on";
+            // champ.checked = donnees[cle] === "on";
+            champ.checked = !!donnees[cle];
         } else if (champ.tagName === "SELECT") {
             // Select : sélectionner l'option correspondante
             champ.value = donnees[cle];

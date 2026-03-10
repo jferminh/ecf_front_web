@@ -11,9 +11,35 @@
   border-radius: 0.75rem;
 }
 
+.hero {
+  background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+  min-height: 100vh;
+}
+
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  background: rgba(13, 110, 253, 0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+
+.card-feature {
+  border: none;
+  border-radius: 16px;
+  transition: transform 0.2s ease;
+}
+.card-feature:hover {
+  transform: translateY(-4px);
+}
+
 body {
   background-color: #F8FAFC;
   color: #1E293B;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 :focus-visible {
@@ -21,13 +47,18 @@ body {
   outline-offset: 2px;
 }
 
-header {
+header.navbar,
+header.bg-white {
   background-color: #FFFFFF !important;
 }
 
 .btn-primary {
   background-color: #2563EB;
   border-color: #2563EB;
+}
+.btn-primary:hover, .btn-primary:focus {
+  background-color: rgb(20.7142857143, 84.9285714286, 225.7857142857);
+  border-color: rgb(19.8571428571, 81.4142857143, 216.4428571429);
 }
 
 /*# sourceMappingURL=main.css.map */

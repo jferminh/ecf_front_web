@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <!-- Guard session : redirige vers login.html si non connecté -->
+    <script src="../src/js/auth-guard.js"></script>
     <meta charset="UTF-8">
     <title>ECF Front End - Page d'accueil</title>
 
@@ -8,10 +10,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../src/css/main.css">
-
-
 </head>
 <body>
+
+<!-- ================================================
+     RGPD-2 : Bandeau consentement LocalStorage
+     À placer en premier élément après <body>
+     ================================================ -->
+<div
+        id="rgpd-banner"
+        class="position-fixed bottom-0 start-0 end-0 z-3 bg-dark text-white p-3 shadow-lg"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Bandeau de consentement"
+        hidden
+>
+    <div class="container d-flex flex-wrap align-items-center justify-content-between gap-3">
+
+        <!-- Message -->
+        <p class="mb-0 small">
+            🍪 <strong>SwingApp CRM</strong> utilise le <strong>LocalStorage</strong>
+            pour mémoriser temporairement vos saisies (brouillons de formulaires).
+            Ces données restent sur votre appareil et sont supprimées automatiquement
+            après <strong>30 jours sans activité</strong>.
+            <a
+                    href="../src/mentions-legales.html"
+                    class="text-white-50 text-decoration-underline ms-1"
+            >
+                En savoir plus
+            </a>
+        </p>
+
+        <!-- Boutons -->
+        <div class="d-flex gap-2 flex-shrink-0">
+            <button
+                    type="button"
+                    id="btn-rgpd-refuser"
+                    class="btn btn-outline-light btn-sm"
+            >
+                ❌ Refuser
+            </button>
+            <button
+                    type="button"
+                    id="btn-rgpd-accepter"
+                    class="btn btn-success btn-sm"
+            >
+                ✅ Accepter
+            </button>
+        </div>
+
+    </div>
+</div>
 
 <!-- HEADER -->
 <header class="bg-white border-bottom shadow-sm">
@@ -27,17 +76,17 @@
             </div>
         </div>
 
-        <div>
-            <button
+        <!-- Header : déconnexion -->
+        <div class="dropdown ms-2">
+              <span class="text-dark small d-none d-md-inline" id="label-user">
+                👤 <span id="nom-utilisateur">admin</span>
+              </span>
+            <button type="button"
                     class="btn btn-outline-primary btn-sm"
-                    type="button"
-                    id="btn-login"
-                    data-bs-toggle="modal"
-                    data-bs-target="#modal-connexion"
-            >
-                🔒 Connexion
+                    id="btn-deconnexion"
+                    aria-label="Se déconnecter">
+                Déconnexion
             </button>
-
         </div>
     </nav>
 
@@ -111,7 +160,7 @@
 
                 <!-- Bouton Créer clients -->
                 <div class="text-md-end mt-2 mt-md-0">
-                    <a href="pages/clients/form-client.html" class="btn btn-primary">
+                    <a href="../src/pages/clients/form-client.html" class="btn btn-primary">
                         <span class="d-none d-sm-inline">+ Créer un client</span>
                         <span class="d-inline d-sm-none">+ Créer</span>
                     </a>
@@ -148,11 +197,13 @@
                         <td>Paris</td>
                         <td class="d-none d-lg-table-cell">150 000</td>
                         <td class="text-end">
-                            <a href="pages/clients/form-client.html" class="btn btn-sm btn-outline-secondary me-1"
+                            <a href="../src/pages/clients/form-client.html"
+                               class="btn btn-sm btn-outline-secondary me-1"
                                title="Modifier">
                                 ⚙️
                             </a>
-                            <a href="../src/pages/clients/detail.html" class="btn btn-sm btn-outline-primary me-1"
+                            <a href="../src/pages/clients/detail-client.html"
+                               class="btn btn-sm btn-outline-primary me-1"
                                title="Voir détails">
                                 📍
                             </a>
@@ -177,11 +228,13 @@
                         <td>Lyon</td>
                         <td class="d-none d-lg-table-cell">85 000</td>
                         <td class="text-end">
-                            <a href="pages/clients/form-client.html" class="btn btn-sm btn-outline-secondary me-1"
+                            <a href="../src/pages/clients/form-client.html"
+                               class="btn btn-sm btn-outline-secondary me-1"
                                title="Modifier">
                                 ⚙️
                             </a>
-                            <a href="../src/pages/clients/detail.html" class="btn btn-sm btn-outline-primary me-1"
+                            <a href="../src/pages/clients/detail-client.html"
+                               class="btn btn-sm btn-outline-primary me-1"
                                title="Voir détails">
                                 📍
                             </a>
@@ -206,11 +259,13 @@
                         <td>Nice</td>
                         <td class="d-none d-lg-table-cell">220 000</td>
                         <td class="text-end">
-                            <a href="pages/clients/form-client.html" class="btn btn-sm btn-outline-secondary me-1"
+                            <a href="../src/pages/clients/form-client.html"
+                               class="btn btn-sm btn-outline-secondary me-1"
                                title="Modifier">
                                 ⚙️
                             </a>
-                            <a href="../src/pages/clients/detail.html" class="btn btn-sm btn-outline-primary me-1"
+                            <a href="../src/pages/clients/detail-client.html"
+                               class="btn btn-sm btn-outline-primary me-1"
                                title="Voir détails">
                                 📍
                             </a>
@@ -234,7 +289,7 @@
             <!-- PAGINATION DES CLIENTS -->
             <nav aria-label="Pagination des clients" class="mt-3">
                 <ul class="pagination pagination-sm justify-content-center mb-0">
-                    <!-- Bouton Précédent (désactivé car on est en page 1) -->
+                    <!-- Bouton Précédent (désactivé, car on est en page 1) -->
                     <li class="page-item disabled" aria-disabled="true">
                         <span class="page-link">Précedent</span>
                     </li>
@@ -292,7 +347,7 @@
 
                 <!-- Bouton Créer Prospect -->
                 <div class="text-md-end mt-2 mt-md-0">
-                    <a href="pages/prospects/form-prospect.html" class="btn btn-primary">
+                    <a href="../src/pages/prospects/form-prospect.html" class="btn btn-primary">
                         <span class="d-none d-sm-inline">+ Créer un prospect</span>
                         <span class="d-inline d-sm-none">+ Créer</span>
                     </a>
@@ -324,10 +379,14 @@
                         <td>Rennes</td>
                         <td class="d-none d-lg-table-cell">Fort</td>
                         <td class="text-end">
-                            <a href="pages/prospects/form-prospect.html" class="btn btn-sm btn-outline-secondary me-1" title="Modifier">
+                            <a href="../src/pages/prospects/form-prospect.html"
+                               class="btn btn-sm btn-outline-secondary me-1"
+                               title="Modifier">
                                 ⚙️
                             </a>
-                            <a href="../src/pages/prospects/detail.html" class="btn btn-sm btn-outline-primary me-1" title="Voir détails">
+                            <a href="../src/pages/prospects/detail-prospect.html"
+                               class="btn btn-sm btn-outline-primary me-1"
+                               title="Voir détails">
                                 📍
                             </a>
                             <button type="button" class="btn btn-sm btn-outline-danger" title="Supprimer">
@@ -343,10 +402,14 @@
                         <td>Bordeaux</td>
                         <td class="d-none d-lg-table-cell">Moyen</td>
                         <td class="text-end">
-                            <a href="pages/prospects/form-prospect.html" class="btn btn-sm btn-outline-secondary me-1" title="Modifier">
+                            <a href="../src/pages/prospects/form-prospect.html"
+                               class="btn btn-sm btn-outline-secondary me-1"
+                               title="Modifier">
                                 ⚙️
                             </a>
-                            <a href="../src/pages/prospects/detail.html" class="btn btn-sm btn-outline-primary me-1" title="Voir détails">
+                            <a href="../src/pages/prospects/detail-prospect.html"
+                               class="btn btn-sm btn-outline-primary me-1"
+                               title="Voir détails">
                                 📍
                             </a>
                             <button type="button" class="btn btn-sm btn-outline-danger" title="Supprimer">
@@ -362,10 +425,14 @@
                         <td>Marseille</td>
                         <td class="d-none d-lg-table-cell">Faible</td>
                         <td class="text-end">
-                            <a href="pages/prospects/form-prospect.html" class="btn btn-sm btn-outline-secondary me-1" title="Modifier">
+                            <a href="../src/pages/prospects/form-prospect.html"
+                               class="btn btn-sm btn-outline-secondary me-1"
+                               title="Modifier">
                                 ⚙️
                             </a>
-                            <a href="../src/pages/prospects/detail.html" class="btn btn-sm btn-outline-primary me-1" title="Voir détails">
+                            <a href="../src/pages/prospects/detail-prospect.html"
+                               class="btn btn-sm btn-outline-primary me-1"
+                               title="Voir détails">
                                 📍
                             </a>
                             <button type="button" class="btn btn-sm btn-outline-danger" title="Supprimer">
@@ -416,141 +483,10 @@
         <p class="mb-0 small">
             <a href="#" class="link-secondary">RGPD</a> ·
             <a href="#" class="link-secondary">Accessibilité</a> ·
-            <a href="#" class="link-secondary">Mentions légales</a>
+            <a href="../src/mentions-legales.html" class="link-secondary">Mentions légales</a>
         </p>
     </div>
 </footer>
-
-
-<!-- ======= MODAL CONNEXION ======= -->
-<div
-        class="modal fade"
-        id="modal-connexion"
-        tabindex="-1"
-        aria-labelledby="modal-connexion-titre"
-        aria-modal="true"
-        role="dialog"
->
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h2 class="modal-title h5" id="modal-connexion-titre">
-                    🔒 Connexion
-                </h2>
-                <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Fermer la fenêtre de connexion"
-                ></button>
-            </div>
-
-            <div class="modal-body">
-                <form
-                        id="form-connexion"
-                        novalidate
-                        aria-label="Formulaire de connexion"
-                >
-
-                    <!-- Identifiant -->
-                    <div class="mb-3">
-                        <label for="login-identifiant" class="form-label">
-                            Identifiant
-                            <span class="text-danger" aria-hidden="true">*</span>
-                        </label>
-                        <input
-                                type="text"
-                                id="login-identifiant"
-                                name="identifiant"
-                                class="form-control"
-                                placeholder="Votre identifiant"
-                                required
-                                autocomplete="username"
-                                aria-required="true"
-                                aria-describedby="login-id-erreur"
-                                autofocus
-                        >
-                        <div
-                                id="login-id-erreur"
-                                class="invalid-feedback"
-                                role="alert"
-                        >
-                            L'identifiant est obligatoire.
-                        </div>
-                    </div>
-
-                    <!-- Mot de passe + bouton afficher/masquer -->
-                    <div class="mb-3">
-                        <label for="login-mdp" class="form-label">
-                            Mot de passe
-                            <span class="text-danger" aria-hidden="true">*</span>
-                        </label>
-                        <div class="input-group">
-                            <input
-                                    type="password"
-                                    id="login-mdp"
-                                    name="motDePasse"
-                                    class="form-control"
-                                    placeholder="Votre mot de passe"
-                                    required
-                                    autocomplete="current-password"
-                                    aria-required="true"
-                                    aria-describedby="login-mdp-erreur"
-                            >
-
-                            <button
-                                    type="button"
-                                    class="btn btn-outline-secondary"
-                                    id="btn-toggle-mdp"
-                                    aria-label="Afficher le mot de passe"
-                                    aria-pressed="false"
-                            >
-                                👁️
-                            </button>
-                        </div>
-                        <div
-                                id="login-mdp-erreur"
-                                class="invalid-feedback"
-                                role="alert"
-                        >
-                            Le mot de passe est obligatoire.
-                        </div>
-                    </div>
-
-                    <!-- Se souvenir de moi -->
-                    <div class="mb-3 form-check">
-                        <input
-                                type="checkbox"
-                                id="remember-me"
-                                name="rememberMe"
-                                class="form-check-input"
-                        >
-                        <label for="remember-me" class="form-check-label">
-                            Se souvenir de moi
-                        </label>
-                    </div>
-
-                    <!-- Bouton soumettre (largeur 100% dans la modal) -->
-                    <div class="d-grid mb-3">
-                        <button type="submit" class="btn btn-primary">
-                            Se connecter
-                        </button>
-                    </div>
-
-                    <!-- Lien mot de passe oublié -->
-                    <div class="text-center">
-                        <a href="#" class="link-secondary small">
-                            Mot de passe oublié ?
-                        </a>
-                    </div>
-
-                </form>
-            </div>
-
-        </div>
-    </div>
-</div>
 
 <!-- ======= MODAL SUPPRESSION ======= -->
 <div
@@ -612,9 +548,40 @@
     </div>
 </div>
 
+<!-- ======= MODAL DÉCONNEXION ======= -->
+<div class="modal fade" id="modal-deconnexion" tabindex="-1"
+     aria-labelledby="titre-deconnexion" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="titre-deconnexion">
+                    Confirmer la déconnexion
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer">
+
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">
+                    Êtes-vous sûr de vouloir vous déconnecter ?<br>
+                    <small class="text-muted">Votre session sera fermée.</small>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Annuler
+                </button>
+                <button type="button" class="btn btn-danger" id="confirm-deconnexion">
+                    Se déconnecter
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/modal-connexion.js"></script>
-<script src="js/modal-suppression.js"></script>
+<script src="../src/js/modal.js"></script>
+<script src="../src/js/rgpd-consent.js"></script>
 
 </body>
 </html>
